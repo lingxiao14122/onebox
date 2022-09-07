@@ -20,31 +20,23 @@
             }
         </style>
         <div class="flex h-full">
-            <nav class="w-[220px] bg-blue-100">
-                <div class="flex flex-col ml-5 text-lg">
-                    <a href="/" class="text-4xl py-6">📦Onebox</a>
-                </div>
-                <div class="flex flex-col ml-5 text-lg">
-                    <a href="#navigation" class="mb-5">navigation</a>
-                    <a href="#navigation" class="mb-5">navigation</a>
-                    <a href="#navigation" class="mb-5">navigation</a>
-                    <a href="#navigation" class="mb-5">navigation</a>
-                </div>
-            </nav>
-            <main class="flex-1">
+            <x-sidebar/>
+            <main class="flex-1 overflow-y-auto">
                 <header class="h-14 border-b border-gray-400">
                     <ul class="flex justify-end items-center space-x-6 text-lg mr-6 h-full">
                         <li>
                             <form class="inline" method="POST" action="/logout">
                                 @csrf
-                                <button type="submit">
-                                    <i class="fa-solid fa-arrow-right-from-bracket hover:text-blue-500"></i> Logout
+                                <button type="submit" class="hover:text-blue-500">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
                                 </button>
                             </form>
                         </li>
                     </ul>
                 </header>
-                {{ $slot }}
+                <div id="layout-slot-wrap" class="">
+                    {{ $slot }}
+                </div>
             </main>
         </div>
     @else

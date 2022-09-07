@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::apiResource('items', ItemController::class); https://laravel.com/docs/9.x/controllers#api-resource-routes
