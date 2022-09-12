@@ -18,4 +18,12 @@ class Item extends Model
         'selling_price',
         'minimum_stock',
     ];
+
+    /**
+     * Item can have many transaction
+     */
+    public function transaction()
+    {
+        return $this->belongsToMany(Transaction::class);
+    }
 }
