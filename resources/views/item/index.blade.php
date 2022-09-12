@@ -11,7 +11,7 @@
         </div>
         <div class="overflow-hidden mb-8 mx-8 border border-slate-400 rounded pt-4">
             <table class="border-collapse table-fixed w-full text-sm">
-                <thead class="border-b border-slate-400">
+                <thead class="border-b-[0.5px] border-slate-400">
                     <tr>
                         <th class="font-medium p-4 pl-8 pt-0 pb-3 text-left">Image</th>
                         <th class="font-medium p-4 pt-0 pb-3 text-left">Name</th>
