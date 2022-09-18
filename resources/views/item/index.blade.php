@@ -4,12 +4,13 @@
             <a href="{{ url('/item/create') }}" class="hover:text-blue-500 underline">create an item</a>
         </h1>
     @else
-        <div class="h-14 m-8 my-2 flex justify-end">
+        <div class="h-14 m-5 my-2 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold">Browse item</h1>
             <a href="{{ url('/item/create') }}" class="bg-blue-500 text-white rounded py-2 px-4 my-auto hover:bg-black">
                 New item
             </a>
         </div>
-        <div class="overflow-hidden mb-8 mx-8 border border-slate-400 rounded pt-4">
+        <div class="overflow-hidden mb-8 mx-5 border border-slate-400 rounded pt-4">
             <table class="border-collapse table-fixed w-full text-sm">
                 <thead class="border-b-[0.5px] border-slate-400">
                     <tr>
