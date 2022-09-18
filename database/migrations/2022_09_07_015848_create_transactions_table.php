@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->enum('type', ['in', 'out', 'audit']);
             $table->timestamps();
         });
     }
