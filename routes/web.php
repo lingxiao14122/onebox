@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,8 @@ Route::group(['middleware' => ['guest']], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', [UserController::class, 'logout']);
     Route::resource('item', ItemController::class);
+    Route::get('/transaction', [TransactionController::class, 'index']);
+    Route::get('/transaction/create', [TransactionController::class, 'create']);
+    Route::post('/transaction', [TransactionController::class, 'store']);
+    Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
 });
