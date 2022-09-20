@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    // TODO: only admin should have access to this
     public function create()
     {
         return view('users.register');
