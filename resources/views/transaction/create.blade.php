@@ -28,6 +28,12 @@
             @error('item_quantities')
                 <p class="mt-1 mb-2 text-red-500">{{ $message }}</p>
             @enderror
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <p class="mt-1 mb-2 text-red-500">{{ $error }}</p>
+                @endforeach
+            @endif
+            {{-- TODO: populate old() value when validation fail --}}
             <div id="selectProductDiv" class="w-full mb-6 border rounded border-slate-400">
                 <div class="flex py-4 pl-6 font-medium">
                     <h5 class="basis-1/2">Product</h5>
@@ -37,8 +43,7 @@
                     <input class="h-12 pl-6 mr-4 basis-1/2" type="text" value="" placeholder="Select a product"
                         onclick="chooseProduct(this)">
                     <input type="hidden" name="item_ids[]" type="number">
-                    <input class="basis-1/2 max-w-[200px] h-8" type="number" min="1" name="item_quantities[]"
-                        required />
+                    <input class="basis-1/2 max-w-[200px] h-8" type="number" name="item_quantities[]" required />
                     <div class="mx-4 cursor-pointer" onclick="chooseProductRowDelete(this)">
                         <?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24" viewBox="0 0 48 48"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,10 +67,11 @@
                 let selectProductDiv = document.getElementById('selectProductDiv');
                 let lastRow = selectProductDiv.lastElementChild
                 // if one field exist dont remove last element
-                if (selectProductDiv.childElementCount <= 2 && (lastRow.children[1].value.length == 0 && lastRow.children[2].value.length == 0)) {
+                if (selectProductDiv.childElementCount <= 2 && (lastRow.children[1].value.length == 0 && lastRow.children[2]
+                        .value.length == 0)) {
                     alert('Please select at least one product')
                     return false
-                } 
+                }
                 // if last row not used
                 if (lastRow.children[1].value.length == 0 && lastRow.children[2].value.length == 0) {
                     lastRow.remove()
@@ -76,8 +82,7 @@
         </script>
         <div class="mb-6">
             {{-- dispatch submit event --}}
-            <button class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-black"
-                onclick="clickSubmitBtn(event);">
+            <button class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-black" onclick="clickSubmitBtn(event);">
                 Save
             </button>
             {{-- receive submit event --}}

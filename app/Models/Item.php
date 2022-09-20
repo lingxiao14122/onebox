@@ -24,6 +24,6 @@ class Item extends Model
      */
     public function transaction()
     {
-        return $this->belongsToMany(Transaction::class);
+        return $this->belongsToMany(Transaction::class)->withPivot('quantity');
     }
 }

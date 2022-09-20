@@ -9,6 +9,11 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'type',
+    ];
+
     /**
      * Transaction must have a user
      */
@@ -22,6 +27,6 @@ class Transaction extends Model
      */
     public function items()
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(Item::class)->withPivot('quantity');
     }
 }
