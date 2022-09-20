@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.tr-border-except-last:not(:last-child) {
+    @apply border-b-[0.5px];
+    @apply border-slate-400 ;
+}
