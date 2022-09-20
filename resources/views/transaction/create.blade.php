@@ -25,19 +25,19 @@
             @error('item_ids')
                 <p class="mt-1 mb-2 text-red-500">{{ $message }}</p>
             @enderror
-            @error('item_counts')
+            @error('item_quantities')
                 <p class="mt-1 mb-2 text-red-500">{{ $message }}</p>
             @enderror
             <div id="selectProductDiv" class="w-full mb-6 border rounded border-slate-400">
                 <div class="flex py-4 pl-6 font-medium">
                     <h5 class="basis-1/2">Product</h5>
-                    <h5 class="basis-1/2">Count</h5>
+                    <h5 class="basis-1/2">Quantity</h5>
                 </div>
                 <div data-role="row" class="relative flex items-center h-14">
                     <input class="h-12 pl-6 mr-4 basis-1/2" type="text" value="" placeholder="Select a product"
                         onclick="chooseProduct(this)">
                     <input type="hidden" name="item_ids[]" type="number">
-                    <input class="basis-1/2 max-w-[200px] h-8" type="number" min="1" name="item_counts[]"
+                    <input class="basis-1/2 max-w-[200px] h-8" type="number" min="1" name="item_quantities[]"
                         required />
                     <div class="mx-4 cursor-pointer" onclick="chooseProductRowDelete(this)">
                         <?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24" viewBox="0 0 48 48"
