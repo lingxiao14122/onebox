@@ -16,7 +16,8 @@
                     <thead class="border-b-[0.5px] border-slate-400">
                         <tr>
                             <th class="w-48 p-4 pt-0 pb-3 font-medium text-left">Transaction ID</th>
-                            <th class="p-4 pt-0 pb-3 font-medium text-left">User</th>
+                            <th class="p-4 pt-0 pb-3 font-medium text-left">Transaction type</th>
+                            <th class="p-4 pt-0 pb-3 font-medium text-left">Created By</th>
                             <th class="p-4 pt-0 pr-8 font-medium text-left">Items</th>
                         </tr>
                     </thead>
@@ -24,6 +25,7 @@
                         @foreach ($transactions as $transaction)
                             <tr class="tr-border-except-last">
                                 <td class="p-3 pl-3 text-slate-500">{{ $transaction->id }}</td>
+                                <td class="p-3 text-slate-500">{{ $transaction->type }}</td>
                                 <td class="p-3 text-slate-500">{{ $transaction->user->name }}</td>
                                 <td class="p-3 text-slate-500">
                                     @foreach ($transaction->items as $item)
