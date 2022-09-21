@@ -11,12 +11,6 @@ use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
 {
-    // $ace = Transaction::find(1);
-    //     dd($ace->items);
-    // $ace = new Transaction;
-    // $ace->user_id = 1;
-    // $ace->save();
-    // $ace->items()->attach(1);
     public function index()
     {
         return view('transaction.index', ["transactions" => Transaction::all()]);
