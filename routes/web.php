@@ -3,6 +3,7 @@
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,24 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('landing');
+    if (Auth::check()) {
+        return view('landing');
+    } else {
+        return redirect('login');
+    }
 });
 
 Route::get('/logout', [UserController::class, 'logout']);
 
 Route::group(['middleware' => ['guest']], function () {
-    //create
-    Route::get('/register', [UserController::class, 'create']);
-    Route::post('/users', [UserController::class, 'store']);
-    
-    //login
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::post('/users/login', [UserController::class, 'authenticate']);
 });
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::post('/logout', [UserController::class, 'logout']);
     Route::resource('item', ItemController::class);
     Route::get('/transaction', [TransactionController::class, 'index']);
     Route::get('/transaction/create', [TransactionController::class, 'create']);
