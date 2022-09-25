@@ -42,6 +42,7 @@ class ItemController extends Controller
             "purchase_price" => "nullable|numeric",
             "selling_price" => "nullable|numeric",
             "minimum_stock" => "nullable|numeric",
+            "stock_count" => "nullable|numeric",
         ]);
 
         if ($request->hasFile('image')) {

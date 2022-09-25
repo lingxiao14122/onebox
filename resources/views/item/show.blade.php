@@ -1,8 +1,8 @@
 <x-layout>
     <div class="h-14 m-5 flex justify-between">
-        <h1 class="text-4xl font-semibold">{{ $item->name }}</h1>
+        <h1 class="text-4xl font-semibold">{{ $item->name }}     ({{ $item->stock_count }} left)</h1>
         <div class="flex items-center space-x-4">
-            <form action="/item/{{ $item->id }}" method="post">
+            <form action="/item/{{ $item->id }}" method="post" onsubmit="return confirm('Do you really want to delete?')">
                 @csrf
                 @method('DELETE')
                 <button class="bg-red-500 text-white rounded py-2 px-4 my-auto hover:bg-black">

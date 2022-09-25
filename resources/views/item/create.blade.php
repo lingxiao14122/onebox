@@ -68,7 +68,14 @@
                     <p class="text-red-500 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            // TODO: initial stock input
+            <div class="mb-6">
+                <label for="stock_count" class="inline-block text-lg mb-2">Initial stock count</label>
+                <input type="number" class="border border-gray-500 rounded p-2 mb-2 w-full" name="stock_count"
+                    value="{{ old('stock_count') }}">
+                @error('stock_count')
+                    <p class="text-red-500 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
             <div class="mb-6">
                 <button type="submit" class="bg-blue-500 text-white rounded py-2 px-4 hover:bg-black">
                     Save

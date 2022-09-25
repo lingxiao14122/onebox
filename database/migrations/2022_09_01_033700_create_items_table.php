@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('purchase_price')->nullable();
             $table->integer('selling_price')->nullable();
             $table->integer('minimum_stock')->nullable();
-            $table->integer('stock_count')->unsigned();
+            $table->integer('stock_count')->nullable()->unsigned();
             $table->timestamps();
         });
     }

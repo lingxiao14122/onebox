@@ -17,17 +17,19 @@
                         <th class="font-medium p-4 pl-8 pt-0 pb-3 text-left">Image</th>
                         <th class="font-medium p-4 pt-0 pb-3 text-left">Name</th>
                         <th class="font-medium p-4 pr-8 pt-0 text-left">SKU</th>
+                        <th class="font-medium p-4 pr-8 pt-0 text-left">Stock count</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white">
                     @foreach ($items as $item)
-                        <tr class="cursor-pointer" onclick='window.location="{{ url("/item/{$item->id}") }}"'>
+                        <tr class="cursor-pointer hover:bg-gray-100" onclick='window.location="{{ url("/item/{$item->id}") }}"'>
                             <td class="p-3 pl-3 text-slate-500">
                                 <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('storage/no-image.png') }}"
                                     class="h-32 w-32 bg-gray-200 object-contain">
                             </td>
                             <td class="p-3 text-slate-500">{{ $item->name }}</td>
                             <td class="p-3 text-slate-500">{{ $item->sku }}</td>
+                            <td class="p-3 text-slate-500">{{ $item->stock_count }}</td>
                         </tr>
                     @endforeach
             </table>
