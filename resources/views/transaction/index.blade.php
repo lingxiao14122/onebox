@@ -25,9 +25,9 @@
                         @foreach ($transactions as $transaction)
                             <tr class="tr-border-except-last">
                                 <td class="p-3 pl-3 text-slate-500">{{ $transaction->id }}</td>
-                                <td class="p-3 text-slate-500">{{ $transaction->type }}</td>
-                                <td class="p-3 text-slate-500">{{ $transaction->user->name }}</td>
-                                <td class="p-3 text-slate-500">
+                                <td class="p-3">{{ $transaction->type }}</td>
+                                <td class="p-3">{{ $transaction->user->name }}</td>
+                                <td class="p-3">
                                     @foreach ($transaction->items as $item)
                                         {{ $item->name }}<br>
                                     @endforeach
