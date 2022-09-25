@@ -25,7 +25,7 @@
                 <header class="h-14 border-b border-gray-400">
                     <ul class="flex justify-end items-center space-x-6 text-lg mr-6 h-full">
                         <li>
-                            <form class="inline" method="POST" action="/logout">
+                            <form class="inline" method="GET" action="/logout">
                                 @csrf
                                 <button type="submit" class="hover:text-blue-500">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
