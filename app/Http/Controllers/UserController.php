@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.register');
+        return view('users.create');
     }
 
     public function store(Request $request)
@@ -23,13 +23,16 @@ class UserController extends Controller
             "name" => "required|min:3",
             "email" => "required|email|unique:users",
             "password" => "required|confirmed|min:6",
+            "role" => "required|in:admin,user"
         ]);
 
         $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['isAdmin'] = $formFields['role'] == 'admin' ? true : false;
 
-        $user = User::create($formFields);
+        User::create($formFields);
 
-        auth()->login($user);
+        return redirect('/user');
+    }
 
         return redirect('/')->with('message', "User created and logged in sucessfully");
     }
