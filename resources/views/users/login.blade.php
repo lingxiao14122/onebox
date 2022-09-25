@@ -23,13 +23,6 @@
                 @enderror
             </div>
             <div class="mb-6">
-                Test account:
-                <br>
-                user1@example.com
-                <br>
-                password
-            </div>
-            <div class="mb-6">
                 <button type="submit" class="bg-blue-500 text-white rounded py-2 px-4 hover:bg-black">
                     Sign In
                 </button>
