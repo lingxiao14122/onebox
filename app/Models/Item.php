@@ -17,6 +17,7 @@ class Item extends Model
         'purchase_price',
         'selling_price',
         'minimum_stock',
+        'stock_count',
     ];
 
     /**
