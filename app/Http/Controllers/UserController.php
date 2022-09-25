@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // TODO: only admin should have access to this
+    public function index()
+    {
+        return view('users.index', ['users' => User::all()]);
+    }
+
     public function create()
     {
         return view('users.register');

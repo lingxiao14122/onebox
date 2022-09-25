@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('landing');
 });
 
+Route::get('/logout', [UserController::class, 'logout']);
+
 Route::group(['middleware' => ['guest']], function () {
     //create
     Route::get('/register', [UserController::class, 'create']);
@@ -38,4 +40,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/transaction/create', [TransactionController::class, 'create']);
     Route::post('/transaction', [TransactionController::class, 'store']);
     Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
+    
+    Route::group(['middleware' => ['can:admin']], function () {
+        Route::get('/user', [UserController::class, 'index']);
+        Route::get('/register', [UserController::class, 'create']);
+        Route::post('/user', [UserController::class, 'store']);
+        Route::put('/user', [UserController::class, 'update']);
+    });
 });
