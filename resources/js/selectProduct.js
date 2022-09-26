@@ -101,7 +101,7 @@ function removeListeners(elem) {
                     <p class="text-sm">${object.name}</p>
                     <p class="text-sm">${object.sku}</p>
                 </div>
-                <p class="pt-2 pr-4">${object.id} pcs</p>
+                <p class="pt-2 pr-4">${object.stock_count} pcs</p>
             </div>
             `
     });
