@@ -24,21 +24,28 @@ class TransactionController extends Controller
 
     public function store(StoreTransactionRequest $request)
     {
+        // validating
         $formFields = $request->validated();
 
-        if ($this->input('transaction_type') == 'audit') {
-            foreach ($formFields['item_ids'] as $key => $item_id) {
-                $quantity = $formFields['item_quantities'][$key];
-                
-                // validate stock count before commit
-                $item = Item::find($item_id);
-                $verifyStockCount = $item->stock_count + $quantity;
-                if ($verifyStockCount <= 0) {
-                    return back()->withErrors(['quantity_out_of_bound' => 'Warning! '.$item->name.' cannot go below zero']);
-                }
+        // TODO: format validated item data to a pair and not seperate array
+
+        // when mode stock out flip quantity to negative
+        if ($formFields['transaction_type'] == "out")
+            foreach ($formFields['item_quantities'] as $key => $quantity) {
+                $formFields['item_quantities'][$key] = -$quantity;
+            }
+
+        // check if stock count will be negative number
+        foreach ($formFields['item_ids'] as $key => $id) {
+            $quantity = $formFields['item_quantities'][$key];
+            $item = Item::find($id);
+            $verifyStockCount = $item->stock_count + $quantity;
+            if ($verifyStockCount < 0) {
+                return back()->withErrors(['quantity_out_of_bound' => "($item->name) Warning! cannot decrease stock below zero"]);
             }
         }
 
+        // storing
         $transaction = Transaction::create([
             "user_id" => Auth::user()->id,
             "type" => $formFields['transaction_type'],
