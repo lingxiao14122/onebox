@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -42,14 +44,25 @@ class ItemController extends Controller
             "purchase_price" => "nullable|numeric",
             "selling_price" => "nullable|numeric",
             "minimum_stock" => "nullable|numeric",
-            "stock_count" => "nullable|numeric",
+            "stock_count" => "nullable|numeric|min:0",
         ]);
 
         if ($request->hasFile('image')) {
             $formFields['image'] = $request->file('image')->store('itemImages', 'public');
         }
 
-        Item::create($formFields);
+        // if stock count is null then 0
+        $formFields['stock_count'] = $formFields['stock_count'] ?? 0;
+
+        $item = Item::create($formFields);
+
+        $transaction = Transaction::create([
+            "user_id" => Auth::id(),
+            "type" => "audit",
+            "comment" => "Product created",
+        ]);
+        
+        $transaction->items()->attach($item->id, ['quantity' => $formFields['stock_count']]);
 
         return redirect(route('item.index'));
     }
@@ -62,7 +75,6 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $item['image'] ?? url('/');
         return view('item.show', compact('item'));
     }
 
