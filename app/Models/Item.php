@@ -17,7 +17,6 @@ class Item extends Model
         'purchase_price',
         'selling_price',
         'minimum_stock',
-        'stock_count',
     ];
 
     /**
@@ -25,6 +24,6 @@ class Item extends Model
      */
     public function transaction()
     {
-        return $this->belongsToMany(Transaction::class)->withPivot('quantity');
+        return $this->belongsToMany(Transaction::class)->using(ItemTransaction::class);
     }
 }
