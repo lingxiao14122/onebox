@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
+use App\Models\Item;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,18 @@ class TransactionController extends Controller
     {
         $formFields = $request->validated();
 
-        // TODO: when stock out throw error when stock count at 0
+        if ($this->input('transaction_type') == 'audit') {
+            foreach ($formFields['item_ids'] as $key => $item_id) {
+                $quantity = $formFields['item_quantities'][$key];
+                
+                // validate stock count before commit
+                $item = Item::find($item_id);
+                $verifyStockCount = $item->stock_count + $quantity;
+                if ($verifyStockCount <= 0) {
+                    return back()->withErrors(['quantity_out_of_bound' => 'Warning! '.$item->name.' cannot go below zero']);
+                }
+            }
+        }
 
         $transaction = Transaction::create([
             "user_id" => Auth::user()->id,
@@ -36,8 +48,6 @@ class TransactionController extends Controller
             $quantity = $formFields['item_quantities'][$key];
             $transaction->items()->attach($item_id, ['quantity' => $quantity]);
         }
-
-        // TODO: calculate stock count on item table
         // TODO: consider using database transaction to revert when things go wrong or when error happen
 
         return redirect('/transaction');
