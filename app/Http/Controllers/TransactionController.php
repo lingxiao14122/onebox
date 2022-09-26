@@ -48,7 +48,6 @@ class TransactionController extends Controller
             $quantity = $formFields['item_quantities'][$key];
             $transaction->items()->attach($item_id, ['quantity' => $quantity]);
         }
-        // TODO: consider using database transaction to revert when things go wrong or when error happen
 
         return redirect('/transaction');
     }
