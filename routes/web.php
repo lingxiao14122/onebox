@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/user', [UserController::class, 'index']);
         Route::get('/register', [UserController::class, 'create']);
         Route::post('/user', [UserController::class, 'store']);
-        Route::put('/user', [UserController::class, 'update']);
+        Route::get('/user/{user}', [UserController::class, 'edit']);
+        Route::put('/user/{user}', [UserController::class, 'update']);
     });
 });

@@ -34,7 +34,26 @@ class UserController extends Controller
         return redirect('/user');
     }
 
-        return redirect('/')->with('message', "User created and logged in sucessfully");
+    public function edit(User $user)
+    {
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(User $user, Request $request)
+    {
+        $formFields = $request->validate([
+            "name" => "required|min:3",
+            "email" => "required|email",
+            "password" => "nullable|confirmed|min:6",
+            "role" => "required|in:admin,user"
+        ]);
+
+        $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['isAdmin'] = $formFields['role'] == 'admin' ? true : false;
+
+        $user->update($formFields);
+
+        return redirect('/user');
     }
 
     public function logout(Request $request)
