@@ -60,7 +60,7 @@
                     <p class="text-red-500 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-6">
+            <div class="mb-0">
                 <label for="minimum_stock" class="inline-block text-lg mb-2">Minimum Stock</label>
                 <input type="number" class="border border-gray-500 rounded p-2 mb-2 w-full" name="minimum_stock"
                     value="{{ old('minimum_stock') }}">
