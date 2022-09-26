@@ -1,7 +1,7 @@
 <x-layout>
     <div class="flex items-center justify-between m-5">
         <h1 class="text-3xl font-semibold">Create User</h1>
-        <a href="{{ url('/item') }}" class="hover:text-blue-500 underline">back</a>
+        <a href="{{ url('/user') }}" class="hover:text-blue-500 underline">back</a>
     </div>
     <form action="{{ url('/user') }}" method="post" class="ml-5">
         @csrf
