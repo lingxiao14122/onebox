@@ -6,6 +6,7 @@
     @else
         <div class="h-14 m-5 my-2 flex justify-between items-center">
             <h1 class="text-3xl font-semibold">Browse item</h1>
+            {{-- TODO: search item --}}
             <a href="{{ url('/item/create') }}" class="bg-blue-500 text-white rounded py-2 px-4 my-auto hover:bg-black">
                 New item
             </a>
