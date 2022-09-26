@@ -14,10 +14,10 @@
             <table class="border-collapse table-fixed w-full text-sm">
                 <thead class="border-b-[0.5px] border-slate-400">
                     <tr>
-                        <th class="font-medium p-4 pl-8 pt-0 pb-3 text-left">Image</th>
-                        <th class="font-medium p-4 pt-0 pb-3 text-left">Name</th>
+                        <th class="font-medium p-4 pl-8 pt-0 pb-3 text-left w-36">Image</th>
+                        <th class="font-medium p-4 pt-0 pb-3 text-left w-1/2">Name</th>
                         <th class="font-medium p-4 pr-8 pt-0 text-left">SKU</th>
-                        <th class="font-medium p-4 pr-8 pt-0 text-left">Stock count</th>
+                        <th class="font-medium p-4 pr-8 pt-0 ">Stock count</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white">
@@ -29,7 +29,7 @@
                             </td>
                             <td class="p-3">{{ $item->name }}</td>
                             <td class="p-3">{{ $item->sku }}</td>
-                            <td class="p-3">{{ $item->stock_count }}</td>
+                            <td class="p-3 text-lg font-bold text-center">{{ $item->stock_count }}</td>
                         </tr>
                     @endforeach
             </table>
