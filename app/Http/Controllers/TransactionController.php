@@ -56,7 +56,7 @@ class TransactionController extends Controller
             $transaction->items()->attach($item_id, ['quantity' => $quantity]);
         }
 
-        return redirect('/transaction');
+        return redirect('/transaction')->with('message', 'Transaction recorded sucessfully');
     }
 
     public function show(Transaction $transaction)
