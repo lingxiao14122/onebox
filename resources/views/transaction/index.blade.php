@@ -8,7 +8,7 @@
     <div class="mx-5">
         @if ($transactions->isEmpty())
             <h1 class="mt-5 mb-6 text-xl text-center">No transaction
-                <a href="{{ url('/transaction/create') }}" class="underline hover:text-blue-500">create an item</a>
+                <a href="{{ url('/transaction/create') }}" class="underline hover:text-blue-500">create a transaction</a>
             </h1>
         @else
             <div class="pt-4 mb-8 overflow-hidden border rounded border-slate-400">
