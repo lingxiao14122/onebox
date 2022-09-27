@@ -2,18 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 .tr-border-except-last:not(:last-child) {
-    @apply border-b-[0.5px];
-    @apply border-slate-400 ;
+  @apply border-b-[0.5px];
+  @apply border-slate-400;
 }
 
 .elementToFadeInAndOut {
-    animation: fadeinout 2.5s linear forwards;
-    opacity: 0;
+  animation: fadeinout 2.5s linear forwards;
+  opacity: 0;
 }
 
 @keyframes fadeinout {
-  5% { opacity: 1; }
-  95% { opacity: 1; }
-  100% { opacity: 0; }
+  5% {
+    opacity: 1;
+  }
+
+  95% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.bell-shaking {
+  animation: bellShake 1.5s ease 0s infinite normal forwards
+}
+
+@keyframes bellShake {
+
+  0%,
+  100% {
+    transform: translateX(0%);
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    transform: translateX(-10px) rotate(6deg);
+  }
+
+  30% {
+    transform: translateX(5px) rotate(-6deg);
+  }
+
+  45% {
+    transform: translateX(-4px) rotate(3.6deg);
+  }
+
+  60% {
+    transform: translateX(3px) rotate(-2.4deg);
+  }
+
+  75% {
+    transform: translateX(-2px) rotate(1.2deg);
+  }
+}
+
+.notification-box::-webkit-scrollbar {
+  background-color: transparent;
+  width: 14px;
+  height: 10px;
+}
+
+.notification-box::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 20px;
+  background-color: #cbccd3;
+}
+
+.notification-box-in {
+  animation: slide_down_and_fade_in .25s ease-in 1 forwards;
+}
+.notification-box-out {
+  animation: slide_down_and_fade_out .1s ease-in 1 forwards;
+}
+
+@keyframes slide_down_and_fade_in {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px)
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0)
+  }
+}
+@keyframes slide_down_and_fade_out {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0)
+  }
+  
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px)
+  }
 }
