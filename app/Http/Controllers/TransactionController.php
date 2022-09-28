@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Models\Item;
 use App\Models\Transaction;
+use App\Models\User;
+use App\Notifications\MinimumStockCount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
@@ -54,6 +57,17 @@ class TransactionController extends Controller
         foreach ($formFields['item_ids'] as $key => $item_id) {
             $quantity = $formFields['item_quantities'][$key];
             $transaction->items()->attach($item_id, ['quantity' => $quantity]);
+        }
+
+        // after store transaction
+        foreach ($transaction->items as $item) {
+            $ori_stock_count = $item->stock_count;
+            $new_stock_count = $ori_stock_count + $item->pivot->quantity;
+            $item->stock_count = $new_stock_count;
+            Log::info("Stock count ($item->name) updating from $ori_stock_count to $new_stock_count");
+            $item->save();
+
+            
         }
 
         return redirect('/transaction')->with('message', 'Transaction recorded sucessfully');
