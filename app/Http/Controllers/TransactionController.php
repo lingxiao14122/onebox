@@ -67,7 +67,11 @@ class TransactionController extends Controller
             Log::info("Stock count ($item->name) updating from $ori_stock_count to $new_stock_count");
             $item->save();
 
-            
+            $belowMinimum = $item->stock_count < $item->minimum_stock;
+            if ($belowMinimum) {
+                Log::info("Low stock detected (" . $item->name . ") min:$item->minimum_stock actual:$item->stock_count, sending notification to user");
+                $request->user()->notify(new MinimumStockCount($item));
+            }
         }
 
         return redirect('/transaction')->with('message', 'Transaction recorded sucessfully');
