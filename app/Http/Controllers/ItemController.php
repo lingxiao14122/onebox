@@ -111,6 +111,9 @@ class ItemController extends Controller
             $formFields['image'] = $request->file('image')->store('itemImages', 'public');
         }
 
+        $LOGICAL_MIN_STOCK = 0;
+        $formFields['minimum_stock'] = $LOGICAL_MIN_STOCK;
+
         $item->update($formFields);
 
         return redirect(route('item.index'));
