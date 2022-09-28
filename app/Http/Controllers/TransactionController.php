@@ -30,17 +30,17 @@ class TransactionController extends Controller
         // validating
         $formFields = $request->validated();
 
-        // TODO: format validated item data to a pair and not seperate array
+        $products = array_combine($formFields['item_ids'], $formFields['item_quantities']);
 
         // when mode stock out flip quantity to negative
         if ($formFields['transaction_type'] == "out")
-            foreach ($formFields['item_quantities'] as $key => $quantity) {
-                $formFields['item_quantities'][$key] = -$quantity;
+            foreach ($products as $id => $quantity) {
+                $products[$id] = -$quantity;
             }
 
-        // check if stock count will be negative number
-        foreach ($formFields['item_ids'] as $key => $id) {
-            $quantity = $formFields['item_quantities'][$key];
+        // check ahead if stock count will be negative number
+        // use middleware? ask wei liang
+        foreach ($products as $id => $quantity) {
             $item = Item::find($id);
             $verifyStockCount = $item->stock_count + $quantity;
             if ($verifyStockCount < 0) {
@@ -54,9 +54,8 @@ class TransactionController extends Controller
             "type" => $formFields['transaction_type'],
         ]);
 
-        foreach ($formFields['item_ids'] as $key => $item_id) {
-            $quantity = $formFields['item_quantities'][$key];
-            $transaction->items()->attach($item_id, ['quantity' => $quantity]);
+        foreach ($products as $id => $quantity) {
+            $transaction->items()->attach($id, ['quantity' => $quantity]);
         }
 
         // after store transaction
@@ -64,12 +63,12 @@ class TransactionController extends Controller
             $ori_stock_count = $item->stock_count;
             $new_stock_count = $ori_stock_count + $item->pivot->quantity;
             $item->stock_count = $new_stock_count;
-            Log::info("Stock count ($item->name) updating from $ori_stock_count to $new_stock_count");
             $item->save();
+            Log::info("Stock count ($item->name) update from $ori_stock_count to $new_stock_count");
 
             $belowMinimum = $item->stock_count < $item->minimum_stock;
             if ($belowMinimum) {
-                Log::info("Low stock detected (" . $item->name . ") min:$item->minimum_stock actual:$item->stock_count, sending notification to user");
+                Log::info("Low stock identified (" . $item->name . ") min:$item->minimum_stock quantity left:$item->stock_count, sending notification");
                 $request->user()->notify(new MinimumStockCount($item));
             }
         }
