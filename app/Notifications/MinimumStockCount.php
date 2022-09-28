@@ -48,7 +48,7 @@ class MinimumStockCount extends Notification
                     ->line("SKU code is $item->sku")
                     ->line("Quantity left $item->stock_count")
                     ->action('See product detail', url("/item/$item->id"))
-                    ->line('Thank you for using our application!');
+                    ->line('Thank you for using Onebox');
     }
 
     /**
