@@ -22,7 +22,7 @@
                             <tr class="tr-border-except-last hover:bg-slate-100 cursor-pointer" onclick='window.location="{{ url("/user/{$user->id}") }}"'>
                                 <td class="p-3 pl-8">{{ $user->name }}</td>
                                 <td class="p-3">{{ $user->email }}</td>
-                                <td class="p-3">{{ $user->isAdmin ? 'Admin' : 'User' }}</td>
+                                <td class="p-3">{{ $user->is_admin ? 'Admin' : 'User' }}</td>
                             </tr>
                         @endforeach
                     </tbody>

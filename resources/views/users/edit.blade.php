@@ -25,7 +25,7 @@
                 <label for="role" class="inline-block text-lg mb-2">Role</label>
                 <select name="role" class="border border-gray-500 rounded p-2 mb-2 w-full">
                     <option value="user">User</option>
-                    <option value="admin" {{ $user->isAdmin?'selected':'' }}>Admin</option>
+                    <option value="admin" {{ $user->is_admin?'selected':'' }}>Admin</option>
                 </select>
                 @error('role')
                     <p class="text-red-500 mt-1">{{ $message }}</p>

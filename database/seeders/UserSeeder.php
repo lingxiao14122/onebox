@@ -18,12 +18,12 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'user1',
             'email' => 'user1@example.com',
-            'isAdmin' => false,
+            'is_admin' => false,
         ]);
         User::factory()->create([
             'name' => 'admin1',
             'email' => 'admin1@example.com',
-            'isAdmin' => true,
+            'is_admin' => true,
         ]);
     }
 }

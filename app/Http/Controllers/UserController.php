@@ -27,7 +27,7 @@ class UserController extends Controller
         ]);
 
         $formFields['password'] = bcrypt($formFields['password']);
-        $formFields['isAdmin'] = $formFields['role'] == 'admin' ? true : false;
+        $formFields['is_admin'] = $formFields['role'] == 'admin' ? true : false;
 
         User::create($formFields);
 
@@ -49,7 +49,7 @@ class UserController extends Controller
         ]);
 
         $formFields['password'] = bcrypt($formFields['password']);
-        $formFields['isAdmin'] = $formFields['role'] == 'admin' ? true : false;
+        $formFields['is_admin'] = $formFields['role'] == 'admin' ? true : false;
 
         $user->update($formFields);
 
