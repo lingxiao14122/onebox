@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('item_id')->constrained('items');
             $table->foreignId('transaction_id')->constrained('transactions');
+            $table->integer('from_count')->nullable();
+            $table->integer('to_count')->nullable();
             $table->integer('quantity');
-            $table->timestamps();
         });
     }
 

@@ -15,23 +15,41 @@
                 <table class="w-full text-sm border-collapse table-fixed">
                     <thead class="border-b-[0.5px] border-slate-400">
                         <tr>
-                            <th class="w-48 p-4 pt-0 pb-3 font-medium text-left">Transaction ID</th>
-                            <th class="p-4 pt-0 pb-3 font-medium text-left">Transaction type</th>
-                            <th class="p-4 pt-0 pb-3 font-medium text-left">Created By</th>
-                            <th class="p-4 pt-0 pr-8 font-medium text-left">Items</th>
+                            <th class="w-48 p-3 pt-0 pb-3 font-medium text-left">Timestamp</th>
+                            <th class="w-48 p-3 pt-0 pb-3 font-medium text-left">Transaction type</th>
+                            <th class="p-3 pt-0 pr-8 font-medium text-left max-w-[30rem] w-[30rem]">Items</th>
+                            <th class="p-3 pt-0 pb-3 font-medium text-left">Created By</th>
+                            <th class="w-48 p-3 pt-0 pb-3 font-medium text-left">Transaction ID</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
                         @foreach ($transactions as $transaction)
                             <tr class="tr-border-except-last">
-                                <td class="p-3 pl-3 text-slate-500">{{ $transaction->id }}</td>
+                                <td class="p-3">{{ $transaction->user->created_at->format('d/m/y H:i:A') }}</td>
                                 <td class="p-3">{{ $transaction->type }}</td>
-                                <td class="p-3">{{ $transaction->user->name }}</td>
                                 <td class="p-3">
                                     @foreach ($transaction->items as $item)
-                                        {{ $item->name }}<br>
+                                        @php
+                                        if ($item->pivot->from_count > $item->pivot->to_count)
+                                        {
+                                            $arrow_color = "fill-red-500";
+                                        } else {
+                                            $arrow_color = "fill-green-500";
+                                        }
+                                        @endphp
+                                        <div class="flex max-w-[25rem] items-center justify-between">
+                                            <p class="mr-2 overflow-hidden">{{ $item->name }}</p>
+                                            <p class="flex items-center w-8 space-x-1">
+                                                <span class="font-semibold">{{ $item->pivot->from_count }}</span>
+                                                <x-icon.arrow-right class="w-auto h-3 {{ $arrow_color }}">
+                                                </x-icon.arrow-right>
+                                                <span class="font-semibold">{{ $item->pivot->to_count }}</span>
+                                            </p>
+                                        </div>
                                     @endforeach
                                 </td>
+                                <td class="p-3">{{ $transaction->user->name }}</td>
+                                <td class="p-3">{{ $transaction->id }}</td>
                             </tr>
                         @endforeach
                 </table>

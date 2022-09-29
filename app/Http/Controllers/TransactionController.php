@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Notifications\MinimumStockCount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,9 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        return view('transaction.index', ["transactions" => Transaction::all()]);
+        // TODO: reverse list
+        $transaction = Transaction::all()->sortByDesc("created_at");
+        return view('transaction.index', ["transactions" => $transaction]);
     }
 
     public function create()
@@ -60,11 +63,16 @@ class TransactionController extends Controller
 
         // after store transaction
         foreach ($transaction->items as $item) {
-            $ori_stock_count = $item->stock_count;
-            $new_stock_count = $ori_stock_count + $item->pivot->quantity;
-            $item->stock_count = $new_stock_count;
+            $original = $item->stock_count;
+            $mutate = $item->pivot->quantity;
+            $new = $original + $mutate;
+            $item->stock_count = $new;
             $item->save();
-            Log::info("Stock count ($item->name) update from $ori_stock_count to $new_stock_count");
+            $item->pivot->from_count = $original;
+            $item->pivot->to_count = $new;
+            $item->pivot->save();
+            
+            Log::info("Stock count ($item->name) update from $original to $new");
 
             $belowMinimum = $item->stock_count < $item->minimum_stock;
             if ($belowMinimum) {
