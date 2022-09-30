@@ -6,10 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
-class MinimumStockCount extends Notification
+class MinimumStockCount extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    protected $item;
 
     /**
      * Create a new notification instance.
