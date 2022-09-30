@@ -30,13 +30,10 @@ class TransactionController extends Controller
 
     public function store(StoreTransactionRequest $request)
     {
-        // validating
-        $formFields = $request->validated();
-
-        $products = array_combine($formFields['item_ids'], $formFields['item_quantities']);
+        $products = array_combine($request->item_ids, $request->item_quantities);
 
         // when mode stock out flip quantity to negative
-        if ($formFields['transaction_type'] == "out")
+        if ($request->transaction_type == "out")
             foreach ($products as $id => $quantity) {
                 $products[$id] = -$quantity;
             }
@@ -54,7 +51,7 @@ class TransactionController extends Controller
         // storing
         $transaction = Transaction::create([
             "user_id" => Auth::user()->id,
-            "type" => $formFields['transaction_type'],
+            "type" => $request->transaction_type,
         ]);
 
         foreach ($products as $id => $quantity) {
@@ -66,8 +63,10 @@ class TransactionController extends Controller
             $original = $item->stock_count;
             $mutate = $item->pivot->quantity;
             $new = $original + $mutate;
+            
             $item->stock_count = $new;
             $item->save();
+
             $item->pivot->from_count = $original;
             $item->pivot->to_count = $new;
             $item->pivot->save();
