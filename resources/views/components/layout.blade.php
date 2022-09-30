@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Onebox</title>
     @vite('resources/js/app.js')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Echoo.private('App.Models.User.' + {{ auth()->user()->id }})
+                .notification((notification) => {
+                    console.log(notification.type);
+                });
+        })
+    </script>
 </head>
 
 <body>
@@ -21,9 +29,9 @@
             </main>
         </div>
     @else
-        <nav class="flex justify-between items-center my-4">
-            <a href="/" class="text-5xl ml-4">📦Onebox</a>
-            <ul class="flex space-x-6 text-lg mr-6">
+        <nav class="flex items-center justify-between my-4">
+            <a href="/" class="ml-4 text-5xl">📦Onebox</a>
+            <ul class="flex mr-6 space-x-6 text-lg">
                 <li>
                     <a href="/login" class="hover:text-blue-500">Login</a>
                 </li>
