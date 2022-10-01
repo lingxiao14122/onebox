@@ -34,7 +34,7 @@ class MinimumStockCount extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'broadcast'];
+        return ['mail', 'broadcast', 'database'];
     }
 
     /**
@@ -57,21 +57,6 @@ class MinimumStockCount extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the broadcastable representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return BroadcastMessage
-     */
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage([
-            'item_id' => $this->item->id,
-            'name' => $this->item->name,
-            'amount' => $this->item->amount,
-        ]);
-    }
-
-    /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -80,7 +65,9 @@ class MinimumStockCount extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'item_id' => $this->item->id,
+            'name' => $this->item->name,
+            'amount' => $this->item->amount,
         ];
     }
 }

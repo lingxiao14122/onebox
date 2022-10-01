@@ -76,7 +76,7 @@ class TransactionController extends Controller
             $belowMinimum = $item->stock_count < $item->minimum_stock;
             if ($belowMinimum) {
                 Log::info("Low stock identified (".$item->name.") min:$item->minimum_stock quantity left:$item->stock_count, sending notification");
-                $notification = (new MinimumStockCount($item))->delay(now()->addSeconds(20));
+                $notification = (new MinimumStockCount($item))->delay(now()->addSeconds(5));
                 $request->user()->notify($notification);
             }
         }
