@@ -7,12 +7,7 @@
     <title>Onebox</title>
     @vite('resources/js/app.js')
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            Echoo.private('App.Models.User.' + {{ auth()->user()->id }})
-                .notification((notification) => {
-                    console.log(notification.type);
-                });
-        })
+        window.userId = {{ auth()->user()->id }}
     </script>
 </head>
 

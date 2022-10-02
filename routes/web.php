@@ -47,4 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/user/{user}', [UserController::class, 'edit']);
         Route::put('/user/{user}', [UserController::class, 'update']);
     });
+
+    Route::get('notifications', function() {
+        return auth()->user()->notifications->toJson();
+    });
 });

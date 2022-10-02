@@ -32,4 +32,8 @@ window.Echoo = new Echo({
     disableStats: true,
 });
 
-console.log(Echoo)
+import Alpine from 'alpinejs'
+ 
+window.Alpine = Alpine
+ 
+Alpine.start()

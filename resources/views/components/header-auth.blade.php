@@ -1,23 +1,29 @@
+@vite('resources/js/notification.js')
 <header class="border-b border-gray-400 h-14">
     <ul class="flex items-center justify-end h-full mr-6 space-x-6 text-lg">
-        <li class="relative">
-            <button class="py-2 hover:fill-blue-500" id="bell">
-                <i class="flex items-center justify-center bell-shaking">
-                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path
-                            d="M256 32V49.88C328.5 61.39 384 124.2 384 200V233.4C384 278.8 399.5 322.9 427.8 358.4L442.7 377C448.5 384.2 449.6 394.1 445.6 402.4C441.6 410.7 433.2 416 424 416H24C14.77 416 6.365 410.7 2.369 402.4C-1.628 394.1-.504 384.2 5.26 377L20.17 358.4C48.54 322.9 64 278.8 64 233.4V200C64 124.2 119.5 61.39 192 49.88V32C192 14.33 206.3 0 224 0C241.7 0 256 14.33 256 32V32zM216 96C158.6 96 112 142.6 112 200V233.4C112 281.3 98.12 328 72.31 368H375.7C349.9 328 336 281.3 336 233.4V200C336 142.6 289.4 96 232 96H216zM288 448C288 464.1 281.3 481.3 269.3 493.3C257.3 505.3 240.1 512 224 512C207 512 190.7 505.3 178.7 493.3C166.7 481.3 160 464.1 160 448H288z" />
-                    </svg>
-                </i>
-            </button>
-            <div
-                class="absolute bg-white min-w-[25rem] right-0 top-[100%] overflow-y-scroll border rounded border-slate-300 notification-box shadow-md opacity-0">
-                <div class="max-h-52 notification-content">
-                    @for ($i = 0; $i < 10; $i++)
-                        <div class="h-12 mx-6 my-2 notification-item">
-                            <p class="mb-1 text-base font-semibold text-slate-700">Logitech MX Mouse reach minimum! 3 left</p>
-                            <p class="text-sm font-semibold text-slate-500">27-9-2022 5:00PM</p>
-                        </div>
-                    @endfor
+        <li>
+            <div id="bell-parent" class="relative hover:fill-blue-500" x-data="{ open: false, bellring: false }" x-on:ring="bellring = true">
+                <button 
+                    x-on:click="open = !open; bellring = false" 
+                    x-bind:class="bellring && 'bell-shaking' " 
+                    class="flex items-center justify-center w-10 h-10">
+                    <x-icon.bell width="24" height="24"></x-icon.bell>
+                </button>
+                <div x-show="open" x-transition
+                    class="absolute bg-white right-0 top-[100%] overflow-y-scroll min-w-[24rem]
+                        max-h-52 border rounded border-slate-300 notification-box shadow-md">
+                    <div class="mx-4 mb-4" id="notification-content">
+                        @foreach (auth()->user()->notifications as $no)
+                            <div class="my-2 notification-item">
+                                <p class="mb-1 text-sm font-semibold text-slate-700">
+                                    {{ $no->data['name'] }} reach minimum, <br>{{ $no->data['stock_count'] }} quantity
+                                    left
+                                </p>
+                                <p class="text-sm font-semibold text-slate-500">
+                                    {{ $no->created_at->format('m/d/y g:i A') }}</p>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </li>
@@ -36,4 +42,3 @@
         </li>
     </ul>
 </header>
-@vite('resources/js/notification.js')
