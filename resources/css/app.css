@@ -67,7 +67,7 @@ body {
 
 .notification-box::-webkit-scrollbar {
   background-color: transparent;
-  width: 14px;
+  width: 12px;
   height: 10px;
 }
 

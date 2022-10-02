@@ -25,7 +25,7 @@
                     <tbody class="bg-white">
                         @foreach ($transactions as $transaction)
                             <tr class="tr-border-except-last">
-                                <td class="p-3">{{ $transaction->user->created_at->format('d/m/y H:i:A') }}</td>
+                                <td class="p-3">{{ $transaction->created_at->format('m/d/y g:i A') }}</td>
                                 <td class="p-3">{{ $transaction->type }}</td>
                                 <td class="p-3">
                                     @foreach ($transaction->items as $item)
@@ -39,9 +39,9 @@
                                         @endphp
                                         <div class="flex max-w-[25rem] items-center justify-between">
                                             <p class="mr-2 overflow-hidden">{{ $item->name }}</p>
-                                            <p class="flex items-center w-8 space-x-1">
+                                            <p class="flex items-center space-x-1">
                                                 <span class="font-semibold">{{ $item->pivot->from_count }}</span>
-                                                <x-icon.arrow-right class="w-auto h-3 {{ $arrow_color }}">
+                                                <x-icon.arrow-right class="h-3 min-w-[1rem] {{ $arrow_color }}">
                                                 </x-icon.arrow-right>
                                                 <span class="font-semibold">{{ $item->pivot->to_count }}</span>
                                             </p>
