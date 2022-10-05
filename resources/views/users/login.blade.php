@@ -1,29 +1,29 @@
 <x-layout>
     <x-card class="max-w-lg mx-auto mt-24">
         <header class="text-center">
-            <h2 class="text-2xl font-bold uppercase mb-1">
+            <h2 class="mb-1 text-2xl font-bold uppercase">
                 Login
             </h2>
         </header>
 
-        <form action="/users/login" method="post">
+        <form action="{{ url('/users/login')}}" method="post">
             @csrf
             <div class="mb-6">
-                <label for="email" class="inline-block text-lg mb-2">Email</label>
-                <input type="email" class="border border-gray-500 rounded p-2 mb-2 w-full" name="email" value="{{ old('email') }}">
+                <label for="email" class="inline-block mb-2 text-lg">Email</label>
+                <input type="email" class="w-full p-2 mb-2 border border-gray-500 rounded" name="email" value="{{ old('email') }}">
                 @error('email')
-                    <p class="text-red-500 mt-1">{{ $message }}</p>
+                    <p class="mt-1 text-red-500">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="password" class="inline-block text-lg mb-2">Password</label>
-                <input type="password" class="border border-gray-500 rounded p-2 mb-2 w-full" name="password">
+                <label for="password" class="inline-block mb-2 text-lg">Password</label>
+                <input type="password" class="w-full p-2 mb-2 border border-gray-500 rounded" name="password">
                 @error('password')
-                    <p class="text-red-500 mt-1">{{ $message }}</p>
+                    <p class="mt-1 text-red-500">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-6">
-                <button type="submit" class="bg-blue-500 text-white rounded py-2 px-4 hover:bg-black">
+                <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-black">
                     Sign In
                 </button>
             </div>
