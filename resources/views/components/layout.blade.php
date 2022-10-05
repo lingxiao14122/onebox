@@ -7,7 +7,9 @@
     <title>Onebox</title>
     @vite('resources/js/app.js')
     <script>
-        window.userId = {{ auth()->user()->id }}
+        @auth
+            window.userId = {{ auth()->user()->id }}
+        @endauth
     </script>
 </head>
 
