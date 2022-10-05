@@ -3,7 +3,9 @@
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/lazada', function(Request $request) {
+    Log::info(var_export($request, true));
+    return response('', 200);
+});
 
 Route::get('/', function () {
     if (Auth::check()) {
