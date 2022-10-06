@@ -31,8 +31,8 @@
                         stroke-linejoin="round" />
                     <path d="M18 5L30 5" stroke="#333" stroke-width="4" stroke-linecap="round"
                         stroke-linejoin="round" />
-                    <path d="M12 17H36V40C36 41.6569 34.6569 43 33 43H15C13.3431 43 12 41.6569 12 40V17Z"
-                        fill="none" stroke="#333" stroke-width="4" stroke-linejoin="round" />
+                    <path d="M12 17H36V40C36 41.6569 34.6569 43 33 43H15C13.3431 43 12 41.6569 12 40V17Z" fill="none"
+                        stroke="#333" stroke-width="4" stroke-linejoin="round" />
                     <path d="M20 25L28 33" stroke="#333" stroke-width="4" stroke-linecap="round"
                         stroke-linejoin="round" />
                     <path d="M28 25L20 33" stroke="#333" stroke-width="4" stroke-linecap="round"
@@ -60,6 +60,18 @@
     }
     window.clickSubmitBtn = clickSubmitBtn
 </script>
+<div class="w-96">
+    <div class="mb-6">
+        <label for="comment" class="inline-block mb-2 text-lg">Comment
+            <span class="text-slate-400">(optional)</span>
+        </label>
+        <input type="text" class="w-full p-2 mb-2 border border-gray-500 rounded" name="comment"
+            value="{{ old('comment') }}">
+        @error('comment')
+            <p class="mt-1 text-red-500">{{ $message }}</p>
+        @enderror
+    </div>
+</div>
 <div class="mb-6">
     {{-- dispatch submit event --}}
     <button class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-black" onclick="clickSubmitBtn(event);">

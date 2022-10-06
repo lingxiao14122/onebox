@@ -49,6 +49,7 @@ class StoreTransactionRequest extends FormRequest
             "item_ids.*" => "required|numeric",
             "item_quantities" => "required|min:1",
             "item_quantities.*" => "required|numeric|min:1",
+            "comment" => "nullable|max:500",
         ];
 
         // dont allow negative value in form except type = audit

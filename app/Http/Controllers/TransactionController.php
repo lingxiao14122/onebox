@@ -67,6 +67,7 @@ class TransactionController extends Controller
         $transaction = Transaction::create([
             "user_id" => Auth::user()->id,
             "type" => $request->transaction_type,
+            "comment" => $request->comment,
         ]);
 
         foreach ($products as $id => $quantity) {
