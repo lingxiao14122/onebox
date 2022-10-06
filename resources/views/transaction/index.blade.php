@@ -30,21 +30,22 @@
                                 <td class="p-3">
                                     @foreach ($transaction->items as $item)
                                         @php
-                                        if ($item->pivot->from_count > $item->pivot->to_count)
-                                        {
-                                            $arrow_color = "fill-red-500";
-                                        } else {
-                                            $arrow_color = "fill-green-500";
-                                        }
+                                            if ($item->pivot->from_count > $item->pivot->to_count) {
+                                                $arrow_color = 'fill-red-500';
+                                            } else {
+                                                $arrow_color = 'fill-green-500';
+                                            }
                                         @endphp
                                         <div class="flex max-w-[25rem] items-center justify-between">
                                             <p class="mr-2 overflow-hidden">{{ $item->name }}</p>
-                                            <p class="flex items-center space-x-1">
-                                                <span class="font-semibold">{{ $item->pivot->from_count }}</span>
-                                                <x-icon.arrow-right class="h-3 min-w-[1rem] {{ $arrow_color }}">
-                                                </x-icon.arrow-right>
-                                                <span class="font-semibold">{{ $item->pivot->to_count }}</span>
-                                            </p>
+                                            @isset($item->pivot->from_count, $item->pivot->to_count)
+                                                <p class="flex items-center space-x-1">
+                                                    <span class="font-semibold">{{ $item->pivot->from_count }}</span>
+                                                    <x-icon.arrow-right class="h-3 min-w-[1rem] {{ $arrow_color }}">
+                                                    </x-icon.arrow-right>
+                                                    <span class="font-semibold">{{ $item->pivot->to_count }}</span>
+                                                </p>
+                                            @endisset
                                         </div>
                                     @endforeach
                                 </td>
