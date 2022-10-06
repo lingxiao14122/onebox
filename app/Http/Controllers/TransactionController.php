@@ -28,6 +28,21 @@ class TransactionController extends Controller
         return view('transaction.create');
     }
 
+    public function in()
+    {
+        return view('transaction.in');
+    }
+
+    public function out()
+    {
+        return view('transaction.out');
+    }
+
+    public function audit()
+    {
+        return view('transaction.audit');
+    }
+
     public function store(StoreTransactionRequest $request)
     {
         $products = array_combine($request->item_ids, $request->item_quantities);

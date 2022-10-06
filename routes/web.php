@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('item', ItemController::class);
     Route::get('/transaction', [TransactionController::class, 'index']);
     Route::get('/transaction/create', [TransactionController::class, 'create']);
+    Route::get('/transaction/in', [TransactionController::class, 'in']);
+    Route::get('/transaction/out', [TransactionController::class, 'out']);
+    Route::get('/transaction/audit', [TransactionController::class, 'audit']);
     Route::post('/transaction', [TransactionController::class, 'store']);
     Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
     
