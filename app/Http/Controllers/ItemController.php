@@ -62,7 +62,11 @@ class ItemController extends Controller
             "comment" => "Product created",
         ]);
         
-        $transaction->items()->attach($item->id, ['quantity' => $formFields['stock_count']]);
+        $transaction->items()->attach($item->id, [
+            'quantity' => $formFields['stock_count'],
+            'from_count' => 0,
+            'to_count' => $formFields['stock_count']
+        ]);
 
         return redirect(route('item.index'));
     }
