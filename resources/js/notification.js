@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function initEchoChannel() {
-    Echoo.private('App.Models.User.' + userId)
+    window.Echo.private('App.Models.User.' + userId)
         .notification(async (data) => {
             console.log(data);
             const notifications = await axios.get('notifications')
