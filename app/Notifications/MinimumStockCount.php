@@ -53,7 +53,7 @@ class MinimumStockCount extends Notification implements ShouldQueue
             ->greeting("Hi there,")
             ->line("$item->name has fallen below the minimum stock count.")
             ->line("SKU code is $item->sku")
-            ->line("Quantity left $item->count")
+            ->line("Quantity left $this->count")
             ->action('See product detail', url("/item/$item->id"))
             ->line('Thank you for using Onebox');
     }
@@ -70,19 +70,6 @@ class MinimumStockCount extends Notification implements ShouldQueue
             'item_id' => $this->item->id,
             'name' => $this->item->name,
             'stock_count' => $this->count,
-        ];
-    }
-
-    /**
-     * Determine the notification's delivery delay.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function withDelay($notifiable)
-    {
-        return [
-            'database' => now()->addSeconds(3),
         ];
     }
 }
