@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\UsersExport;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -7,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/transaction', [TransactionController::class, 'store']);
     Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
     
+    Route::get('/exports/transaction', function(Request $request) {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    });
+
     Route::group(['middleware' => ['can:admin']], function () {
         Route::get('/user', [UserController::class, 'index']);
         Route::get('/register', [UserController::class, 'create']);

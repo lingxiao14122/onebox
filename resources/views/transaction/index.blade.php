@@ -1,9 +1,14 @@
 <x-layout>
     <div class="flex items-center justify-between m-5">
         <h1 class="text-3xl font-semibold">Transactions</h1>
-        <a href="{{ url('/transaction/create') }}"
-            class="px-4 py-2 my-auto text-white bg-blue-500 rounded hover:bg-black">Record
-            transaction</a>
+        <div class="space-x-2">
+            <a href="{{ url('/exports/transaction') }}"
+                class="px-4 py-2 my-auto text-white bg-blue-500 rounded hover:bg-black">Export excel
+            </a>
+            <a href="{{ url('/transaction/create') }}"
+                class="px-4 py-2 my-auto text-white bg-blue-500 rounded hover:bg-black">Record
+                transaction</a>
+        </div>
     </div>
     <div class="mx-5">
         @if ($transactions->isEmpty())
