@@ -22,7 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 |
 */
 
-Route::get('/lazada', function(Request $request) {
+Route::get('/lazada', function (Request $request) {
     Log::info(var_export($request, true));
     return response('', 200);
 });
@@ -44,28 +44,31 @@ Route::group(['middleware' => ['guest']], function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('item', ItemController::class);
     Route::get('/transaction', [TransactionController::class, 'index']);
     Route::get('/transaction/create', [TransactionController::class, 'create']);
     Route::get('/transaction/in', [TransactionController::class, 'in']);
     Route::get('/transaction/out', [TransactionController::class, 'out']);
     Route::get('/transaction/audit', [TransactionController::class, 'audit']);
     Route::post('/transaction', [TransactionController::class, 'store']);
-    Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
-    
-    Route::get('/exports/transaction', function() {
+
+    Route::get('/exports/transaction', function () {
         return Excel::download(new TransactionsExport, 'transactions.xlsx');
     });
-    
-    Route::group(['middleware' => ['can:admin']], function () {
-        Route::get('/user', [UserController::class, 'index']);
-        Route::get('/register', [UserController::class, 'create']);
-        Route::post('/user', [UserController::class, 'store']);
-        Route::get('/user/{user}', [UserController::class, 'edit']);
-        Route::put('/user/{user}', [UserController::class, 'update']);
-    });
 
-    Route::get('notifications', function() {
+    Route::get('notifications', function () {
         return auth()->user()->notifications->toJson();
     });
+});
+
+Route::group(['middleware' => ['auth', 'can:user']], function () {
+    Route::resource('item', ItemController::class)->except(['destroy']);
+});
+
+Route::group(['middleware' => ['auth', 'can:admin']], function () {
+    Route::resource('item', ItemController::class);
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/register', [UserController::class, 'create']);
+    Route::post('/user', [UserController::class, 'store']);
+    Route::get('/user/{user}', [UserController::class, 'edit']);
+    Route::put('/user/{user}', [UserController::class, 'update']);
 });

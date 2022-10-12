@@ -99,8 +99,4 @@ class TransactionController extends Controller
 
         return redirect('/transaction')->with('message', 'Transaction recorded sucessfully');
     }
-
-    public function show(Transaction $transaction)
-    {
-    }
 }
