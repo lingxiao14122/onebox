@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\TransactionsExport;
 use App\Exports\UsersExport;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
@@ -52,10 +53,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/transaction', [TransactionController::class, 'store']);
     Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
     
-    Route::get('/exports/transaction', function(Request $request) {
-        return Excel::download(new UsersExport, 'users.xlsx');
+    Route::get('/exports/transaction', function() {
+        return Excel::download(new TransactionsExport, 'transactions.xlsx');
     });
-
+    
     Route::group(['middleware' => ['can:admin']], function () {
         Route::get('/user', [UserController::class, 'index']);
         Route::get('/register', [UserController::class, 'create']);
