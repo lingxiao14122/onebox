@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('minimum_stock');
             $table->integer('stock_count')->nullable()->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
