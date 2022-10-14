@@ -2,6 +2,7 @@
 
 use App\Exports\TransactionsExport;
 use App\Exports\UsersExport;
+use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -65,10 +66,14 @@ Route::group(['middleware' => ['auth', 'can:user']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
-    Route::resource('item', ItemController::class);
     Route::get('/user', [UserController::class, 'index']);
     Route::get('/register', [UserController::class, 'create']);
     Route::post('/user', [UserController::class, 'store']);
     Route::get('/user/{user}', [UserController::class, 'edit']);
     Route::put('/user/{user}', [UserController::class, 'update']);
+
+    Route::resource('item', ItemController::class);
+    Route::get('/integration', [IntegrationController::class, 'index']);
+    Route::get('/integration/auth/{platform}', [IntegrationController::class, 'auth']);
+    Route::get('/integration/callback/{platform}', [IntegrationController::class, 'callback']);
 });

@@ -25,6 +25,9 @@
         @can('admin')
             <a href="{{ url('/user') }}" class="px-3 py-2 mx-4 my-1 rounded-md hover:text-blue-700 hover:bg-slate-50">Users
                 & Roles</a>
+            <a href="{{ url('/integration') }}" class="px-3 py-2 mx-4 my-1 rounded-md hover:text-blue-700 hover:bg-slate-50">
+                Integration
+            </a>
         @endcan
     </div>
 </nav>
