@@ -23,11 +23,6 @@ use Maatwebsite\Excel\Facades\Excel;
 |
 */
 
-Route::get('/lazada', function (Request $request) {
-    Log::info(var_export($request, true));
-    return response('', 200);
-});
-
 Route::get('/', function () {
     if (Auth::check()) {
         return view('landing');
