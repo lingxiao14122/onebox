@@ -71,4 +71,7 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/integration', [IntegrationController::class, 'index']);
     Route::get('/integration/auth/{platform}', [IntegrationController::class, 'auth']);
     Route::get('/integration/callback/{platform}', [IntegrationController::class, 'callback']);
+    Route::get('/integration/{platform}', [IntegrationController::class, 'edit']);
+    Route::post('/integration/{platform}', [IntegrationController::class, 'update']);
+    Route::get('/integration/sync/{platform}', [IntegrationController::class, 'sync']);
 });
