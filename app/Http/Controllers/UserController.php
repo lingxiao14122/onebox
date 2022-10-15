@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -22,7 +23,7 @@ class UserController extends Controller
         $formFields = $request->validate([
             "name" => "required|min:3",
             "email" => "required|email|unique:users",
-            "password" => "required|confirmed|min:6",
+            "password" => ["required", "confirmed", Password::min(8)->letters()->numbers()],
             "role" => "required|in:admin,user"
         ]);
 
