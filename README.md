@@ -1,12 +1,8 @@
 # Onebox
 
-### Notes
-Tinker
-```
-Illuminate\Support\Facades\Notification::send(App\Models\User::find(2), new App\Notifications\MinimumStockCount($item))
-```
+[http://oneboxapp.tech/](http://oneboxapp.tech/)
 
-Dev environment
+Scripts
 ```
 npm run build
 ./mailhog
