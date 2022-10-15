@@ -48,11 +48,12 @@ class ItemController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $formFields['image'] = $request->file('image')->store('itemImages', 'public');
+            $formFields['image'] = $request->file('image')->store('storage/itemImages', 'public');
         }
 
         // if stock count is null then 0
         $formFields['stock_count'] = $formFields['stock_count'] ?? 0;
+        $formFields['minimum_stock'] = $formFields['minimum_stock'] ?? 0;
 
         $item = Item::create($formFields);
 
