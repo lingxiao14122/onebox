@@ -48,7 +48,7 @@ class ItemController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $formFields['image'] = $request->file('image')->store('storage/itemImages', 'public');
+            $formFields['image'] = $request->file('image')->store('itemImages', 'public');
         }
 
         // if stock count is null then 0
