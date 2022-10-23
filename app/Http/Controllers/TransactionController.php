@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TransactionFinished;
 use App\Http\Requests\StoreTransactionRequest;
+use App\Models\Integration;
 use App\Models\Item;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Notifications\MinimumStockCount;
+use App\Providers\SyncUpStockCountLazada;
+use App\Services\IntegrationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -95,6 +99,10 @@ class TransactionController extends Controller
                 $notification = (new MinimumStockCount($item, $item->stock_count));
                 $request->user()->notify($notification);
             }
+        }
+
+        if (Integration::where('platform_name', IntegrationService::LAZADA)->latest('created_at')->first()) {
+            event(new TransactionFinished());
         }
 
         return redirect('/transaction')->with('message', 'Transaction recorded sucessfully');

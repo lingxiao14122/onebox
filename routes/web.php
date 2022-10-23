@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/integration', [IntegrationController::class, 'index']);
     Route::get('/integration/auth/{platform}', [IntegrationController::class, 'auth']);
     Route::get('/integration/callback/{platform}', [IntegrationController::class, 'callback']);
-    Route::get('/integration/{platform}', [IntegrationController::class, 'edit']);
-    Route::post('/integration/{platform}', [IntegrationController::class, 'update']);
-    Route::get('/integration/sync/{platform}', [IntegrationController::class, 'sync']);
+    Route::get('/integration/{platform}', [IntegrationController::class, 'edit'])->middleware('lazada.authorized');
+    Route::post('/integration/{platform}', [IntegrationController::class, 'update'])->middleware('lazada.authorized');
+    Route::get('/integration/sync/{platform}', [IntegrationController::class, 'syncDown'])->middleware('lazada.authorized');
 });
