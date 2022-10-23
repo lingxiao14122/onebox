@@ -11,7 +11,8 @@
                 </button>
                 <div x-show="open" x-transition
                     class="absolute bg-white right-0 top-[100%] overflow-y-scroll min-w-[24rem]
-                        max-h-52 border rounded border-slate-300 notification-box shadow-md">
+                        max-h-52 border rounded border-slate-300 notification-box shadow-md"
+                    style="display: none;">
                     <div class="mx-4 mb-4" id="notification-content">
                         @foreach (auth()->user()->notifications as $no)
                             <div class="my-2 notification-item">
