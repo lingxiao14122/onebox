@@ -65,6 +65,7 @@ class IntegrationController extends Controller
                 'refresh_token' => $result->refresh_token,
                 'refresh_expires_in' => $result->refresh_expires_in,
                 'account_email' => $result->account,
+                'is_sync_enabled' => true,
             ]);
             $this->lazadaInitialSync();
             // TODO: start job fetching orders
@@ -78,39 +79,28 @@ class IntegrationController extends Controller
      */
     public function edit()
     {
-        return view('integration.edit');
+        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        return view('integration.edit', compact('in'));
     }
 
     /**
      * Save the updated integration preferences
      */
-    public function update()
+    public function update(Request $request)
     {
-        // TODO: do this
-        dd("update");
+        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $in->is_sync_enabled = $request->checked;
+        $in->save();
+        return response()->json(['is_sync_enabled' => $in->is_sync_enabled]);
     }
 
     public function syncDown($platform, Request $request)
     {
         if ($platform == self::LAZADA) {
             $integrationService = new IntegrationService;
-            $itemIds = $integrationService->getNewOrderLocalItemIds();
-            if (!$itemIds) {
-                return redirect('integration/lazada');
-            }
-            // create transactions to mutate stock count
-            $itemIdQuantitykv = [];
-            foreach ($itemIds as $id) {
-                $itemIdQuantitykv[$id] = ($itemIdQuantitykv[$id] ?? 0) + 1;
-            }
-            $integrationService = new IntegrationService;
-            $integrationService->createTransaction($itemIdQuantitykv);
+            $integrationService->syncDownLazada();
             
-            if ($request->expectsJson()) {
-                return response()->json(['data' => 'ok']);
-            }
-            
-            return redirect('integration/lazada');
+            return redirect('integration/lazada')->with('message', 'Sync done');;
         }
         dd("bad platform name, please check url");
     }

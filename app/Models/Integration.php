@@ -21,5 +21,6 @@ class Integration extends Model
         'refresh_token',
         'refresh_expires_in',
         'account_email',
+        'is_sync_enabled',
     ];
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Http\Controllers\IntegrationController;
@@ -26,9 +27,9 @@ class IntegrationService
         foreach ($products as $id => $quantity) {
             $products[$id] = -$quantity;
         }
-        
+
         $transaction = Transaction::create([
-            "user_id" => Auth::user()->id,
+            "user_id" => 1,
             "type" => 'out',
             "comment" => "lazada sync",
         ]);
@@ -56,7 +57,7 @@ class IntegrationService
             if ($belowMinimum) {
                 Log::info("Low stock identified (" . $item->name . ") min:$item->minimum_stock quantity left:$item->stock_count, sending notification");
                 $notification = (new MinimumStockCount($item, $item->stock_count));
-                User::find(Auth::user()->id)->notify($notification);
+                User::find(1)->notify($notification);
             }
         }
     }
@@ -94,7 +95,7 @@ class IntegrationService
         }
     }
 
-    
+
     private function findSameProducts(array $apiProducts)
     {
         $products = Item::all();
@@ -206,8 +207,7 @@ class IntegrationService
         // request end
 
         // write to db to refresh $created_after
-        foreach ($orders as $order)
-        {
+        foreach ($orders as $order) {
             $lazadaOrders = new LazadaOrders;
             $lazadaOrders->order = json_encode($order);
             $lazadaOrders->save();
@@ -228,6 +228,22 @@ class IntegrationService
             }
         }
         return $ids;
+    }
+
+    public function syncDownLazada()
+    {
+        $integrationService = new IntegrationService;
+        $itemIds = $integrationService->getNewOrderLocalItemIds();
+        if (!$itemIds) {
+            return redirect('integration/lazada')->with('message', 'Sync done, no new orders');;
+        }
+        // create transactions to mutate stock count
+        $itemIdQuantitykv = [];
+        foreach ($itemIds as $id) {
+            $itemIdQuantitykv[$id] = ($itemIdQuantitykv[$id] ?? 0) + 1;
+        }
+        $integrationService = new IntegrationService;
+        $integrationService->createTransaction($itemIdQuantitykv);
     }
 
     private function newLazopClient($url = 'https://api.lazada.com.my/rest')

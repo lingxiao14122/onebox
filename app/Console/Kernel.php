@@ -2,8 +2,11 @@
 
 namespace App\Console;
 
+use App\Models\Integration;
+use App\Services\IntegrationService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +19,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            // decide if to run sync
+            $in = Integration::where('platform_name', IntegrationService::LAZADA)->latest('created_at')->first();
+            if ($in && $in->is_sync_enabled) {
+                Log::info("run schedule sync down lazada");
+                $integrationService = new IntegrationService;
+                $integrationService->syncDownLazada();
+            }
+        })->everyMinute()->sendOutputTo('/var/www/oneboxapp.tech/storage/logs/laravel.log');
     }
 
     /**
@@ -25,7 +37,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
