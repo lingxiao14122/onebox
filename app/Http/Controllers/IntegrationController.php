@@ -68,7 +68,6 @@ class IntegrationController extends Controller
                 'is_sync_enabled' => true,
             ]);
             $this->lazadaInitialSync();
-            // TODO: start job fetching orders
             return redirect('integration')->with('message', 'Authrorization complete');
         }
         dd("bad platform name, please check url");

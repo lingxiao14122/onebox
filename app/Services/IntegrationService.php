@@ -165,6 +165,7 @@ class IntegrationService
         $lazopRequest = new LazopRequest('/orders/get', 'GET');
         $lazopRequest->addApiParam('access_token', $in->access_token);
         $lazopRequest->addApiParam('created_after', $created_after);
+        $lazopRequest->addApiParam('status', 'pending');
         $responseJson = $client->execute($lazopRequest);
         $json = json_decode($responseJson);
         if ($json->code != 0) {
