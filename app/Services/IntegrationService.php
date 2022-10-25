@@ -267,15 +267,12 @@ class IntegrationService
             Log::alert('Lazada db record empty');
             return;
         }
-        // determine if access token is expired
-        // if expired call refresh
-        // if refresh expired send email (once!) and set integration UI back to authorise
-        // integration UI show active only when refresh token is valid
         $refreshExpireDate = Carbon::parse($in->updated_at)->addSeconds($in->refresh_expires_in);
         $isRefreshExpired = Carbon::now()->greaterThan($refreshExpireDate);
         if ($isRefreshExpired) {
             $in->delete();
             Log::alert('Lazada refresh token expired, lazada integration is paused, user need to authorise again');
+            // TODO: email
             return;
         }
         $accessExpireDate = Carbon::parse($in->updated_at)->addSeconds($in->expires_in);
