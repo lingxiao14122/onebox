@@ -119,7 +119,6 @@ class IntegrationService
         $allProducts = [];
         $in = $this->getIntegrationLazadaRecord();
         $token = $in->access_token;
-        // TODO: wrap get token into a method that validates access token before returning
         // ISO 8601 date
         $create_before = Carbon::now()->format('c');
         $apiReplyTotalProducts = [];

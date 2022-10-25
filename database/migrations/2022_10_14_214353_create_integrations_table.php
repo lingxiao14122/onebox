@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("refresh_token");
             $table->integer("refresh_expires_in");
             $table->string("account_email");
-            $table->boolean("is_sync_enabled");// TODO: also disable in transaction listenter
+            $table->boolean("is_sync_enabled");
             $table->timestamps();
         });
     }
