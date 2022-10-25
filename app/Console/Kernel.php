@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
             // decide if to run sync
-            $in = Integration::where('platform_name', IntegrationService::LAZADA)->latest('created_at')->first();
+            $integrationService = new IntegrationService;
+            $in = $integrationService->getIntegrationLazadaRecord();
             if ($in && $in->is_sync_enabled) {
                 Log::info("run schedule sync down lazada");
                 $integrationService = new IntegrationService;

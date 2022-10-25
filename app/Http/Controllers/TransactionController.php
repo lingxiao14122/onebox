@@ -22,7 +22,6 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        // TODO: reverse list
         $transaction = Transaction::all()->sortByDesc("created_at");
         return view('transaction.index', ["transactions" => $transaction]);
     }

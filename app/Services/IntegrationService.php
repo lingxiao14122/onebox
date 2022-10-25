@@ -84,7 +84,7 @@ class IntegrationService
             ";
         }
         $payload = "<Request><Product><Skus>$skus</Skus></Product></Request>";
-        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $in = $this->getIntegrationLazadaRecord();
         $token = $in->access_token;
         $client = $this->newLazopClient();
         $lazopRequest = new LazopRequest('/product/stock/sellable/update', 'GET');
@@ -117,7 +117,7 @@ class IntegrationService
     private function getAllProducts()
     {
         $allProducts = [];
-        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $in = $this->getIntegrationLazadaRecord();
         $token = $in->access_token;
         // TODO: wrap get token into a method that validates access token before returning
         // ISO 8601 date
@@ -162,7 +162,8 @@ class IntegrationService
 
     private function getOrders($created_after = null)
     {
-        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $integrationService = new IntegrationService;
+        $in = $integrationService->getIntegrationLazadaRecord();
         $client = $this->newLazopClient();
         $lazopRequest = new LazopRequest('/orders/get', 'GET');
         $lazopRequest->addApiParam('access_token', $in->access_token);
@@ -178,7 +179,8 @@ class IntegrationService
 
     private function getOrderItems($order_id)
     {
-        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $integrationService = new IntegrationService;
+        $in = $integrationService->getIntegrationLazadaRecord();
         $client = $this->newLazopClient();
         $lazopRequest = new LazopRequest('/order/items/get', 'GET');
         $lazopRequest->addApiParam('access_token', $in->access_token);
@@ -193,7 +195,8 @@ class IntegrationService
 
     public function getNewOrderLocalItemIds()
     {
-        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $integrationService = new IntegrationService;
+        $in = $integrationService->getIntegrationLazadaRecord();
 
         // if table empty use access token date
         $lazadaOrders = LazadaOrders::latest('created_at')->first();
@@ -251,9 +254,56 @@ class IntegrationService
 
     public function syncUp()
     {
-        if (Integration::where('platform_name', IntegrationService::LAZADA)->latest('created_at')->first()) {
+        $integrationService = new IntegrationService;
+        $in = $integrationService->getIntegrationLazadaRecord();
+        if ($in) {
             event(new TransactionFinished());
         }
+    }
+
+    public function getIntegrationLazadaRecord()
+    {
+        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        if (! $in) {
+            Log::alert('Lazada db record empty');
+            return;
+        }
+        // determine if access token is expired
+        // if expired call refresh
+        // if refresh expired send email (once!) and set integration UI back to authorise
+        // integration UI show active only when refresh token is valid
+        $refreshExpireDate = Carbon::parse($in->updated_at)->addSeconds($in->refresh_expires_in);
+        $isRefreshExpired = Carbon::now()->greaterThan($refreshExpireDate);
+        if ($isRefreshExpired) {
+            $in->delete();
+            Log::alert('Lazada refresh token expired, lazada integration is paused, user need to authorise again');
+            return;
+        }
+        $accessExpireDate = Carbon::parse($in->updated_at)->addSeconds($in->expires_in);
+        $isAccessExpired = Carbon::now()->greaterThan($accessExpireDate);
+        if ($isAccessExpired) {
+            dump("is expired");
+            $url = 'https://auth.lazada.com/rest';
+            $key = env('INTEGRATION_LAZADA_APPKEY');
+            $secret = env('INTEGRATION_LAZADA_APPSECRET');
+            $client = new LazopClient($url, $key, $secret);
+            $lazRequest = new LazopRequest('/auth/token/refresh', 'GET');
+            $lazRequest->addApiParam('refresh_token', $in->refresh_token);
+            $response = $client->execute($lazRequest);
+            $json = json_decode($response);
+            if ($json->code != 0) {
+                Log::error('api /auth/token/refresh returned code 0');
+                return;
+            }
+            // write to db
+            $in->access_token = $json->access_token;
+            $in->expires_in = $json->expires_in;
+            $in->refresh_token = $json->refresh_token;
+            $in->refresh_expires_in = $json->refresh_expires_in;
+            $in->save();
+            Log::info('Lazada access token expired, done refresh access token');
+        }
+        return $in;
     }
 
     private function newLazopClient($url = 'https://api.lazada.com.my/rest')

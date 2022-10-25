@@ -6,6 +6,8 @@ use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Models\Integration;
+use App\Services\IntegrationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;

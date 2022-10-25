@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Http\Controllers\IntegrationController;
 use App\Models\Integration;
+use App\Services\IntegrationService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -19,8 +20,9 @@ class LazadaAuthorized
      */
     public function handle(Request $request, Closure $next)
     {
-        $in = Integration::where('platform_name', IntegrationController::LAZADA)->latest('created_at')->first();
-        if (!$in) {
+        $integrationService = new IntegrationService;
+        $in = $integrationService->getIntegrationLazadaRecord();
+        if (! $in) {
             Log::info('not authed');
             return redirect('/integration');
         }

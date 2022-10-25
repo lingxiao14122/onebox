@@ -19,10 +19,9 @@ class IntegrationController extends Controller
     /**
      * Show integration page
      */
-    public function index()
+    public function index(IntegrationService $integrationService)
     {
-        // TODO: validate access token here, refresh if needed, if > 30 days remove db row and re-auth
-        $lazada = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $lazada = $integrationService->getIntegrationLazadaRecord();
         return view('integration.index', ['lazada' => collect($lazada)]);
     }
 
@@ -76,18 +75,18 @@ class IntegrationController extends Controller
     /**
      * Edit integration preferences
      */
-    public function edit()
+    public function edit(IntegrationService $integrationService)
     {
-        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $in = $integrationService->getIntegrationLazadaRecord();
         return view('integration.edit', compact('in'));
     }
 
     /**
      * Save the updated integration preferences
      */
-    public function update(Request $request)
+    public function update(Request $request, IntegrationService $integrationService)
     {
-        $in = Integration::where('platform_name', self::LAZADA)->latest('created_at')->first();
+        $in = $integrationService->getIntegrationLazadaRecord();
         $in->is_sync_enabled = $request->checked;
         $in->save();
         return response()->json(['is_sync_enabled' => $in->is_sync_enabled]);
