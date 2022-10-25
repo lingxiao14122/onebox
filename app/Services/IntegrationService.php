@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\TransactionFinished;
 use App\Http\Controllers\IntegrationController;
 use App\Models\Integration;
 use App\Models\Item;
@@ -67,6 +68,7 @@ class IntegrationService
      */
     public function syncLocalStockCountToLazada()
     {
+        Log::info("IntegrationService: lazada sync up");
         // fetch products from platform
         $apiProducts = $this->getAllProducts();
         // TODO: cache sameProducts to improve performance during consequtive refresh
@@ -245,6 +247,13 @@ class IntegrationService
         }
         $integrationService = new IntegrationService;
         $integrationService->createTransaction($itemIdQuantitykv);
+    }
+
+    public function syncUp()
+    {
+        if (Integration::where('platform_name', IntegrationService::LAZADA)->latest('created_at')->first()) {
+            event(new TransactionFinished());
+        }
     }
 
     private function newLazopClient($url = 'https://api.lazada.com.my/rest')

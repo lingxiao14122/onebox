@@ -83,27 +83,26 @@ class TransactionController extends Controller
             $original = $item->stock_count;
             $mutate = $item->pivot->quantity;
             $new = $original + $mutate;
-            
+
             $item->stock_count = $new;
             $item->save();
 
             $item->pivot->from_count = $original;
             $item->pivot->to_count = $new;
             $item->pivot->save();
-            
+
             Log::info("Stock count ($item->name) update from $original to $new");
 
             $belowMinimum = $item->stock_count < $item->minimum_stock;
             if ($belowMinimum) {
-                Log::info("Low stock identified (".$item->name.") min:$item->minimum_stock quantity left:$item->stock_count, sending notification");
+                Log::info("Low stock identified (" . $item->name . ") min:$item->minimum_stock quantity left:$item->stock_count, sending notification");
                 $notification = (new MinimumStockCount($item, $item->stock_count));
                 $request->user()->notify($notification);
             }
         }
 
-        if (Integration::where('platform_name', IntegrationService::LAZADA)->latest('created_at')->first()) {
-            event(new TransactionFinished());
-        }
+        $integrationService = new IntegrationService;
+        $integrationService->syncUp();
 
         return redirect('/transaction')->with('message', 'Transaction recorded sucessfully');
     }

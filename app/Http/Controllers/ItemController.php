@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Transaction;
+use App\Services\IntegrationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,6 +70,9 @@ class ItemController extends Controller
             'to_count' => $formFields['stock_count']
         ]);
 
+        $integrationService = new IntegrationService;
+        $integrationService->syncUp();
+
         return redirect(route('item.index'));
     }
 
@@ -120,6 +124,9 @@ class ItemController extends Controller
         $formFields['minimum_stock'] = $LOGICAL_MIN_STOCK;
 
         $item->update($formFields);
+
+        $integrationService = new IntegrationService;
+        $integrationService->syncUp();
 
         return redirect(route('item.index'));
     }
