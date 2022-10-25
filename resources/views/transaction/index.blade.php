@@ -17,14 +17,15 @@
             </h1>
         @else
             <div class="pt-4 mb-8 overflow-hidden border rounded border-slate-400">
-                <table class="w-full text-sm border-collapse table-fixed">
+                <table class="w-full text-sm border-collapse table-auto">
                     <thead class="border-b-[0.5px] border-slate-400">
                         <tr>
-                            <th class="w-48 p-3 pt-0 pb-3 font-medium text-left">Timestamp</th>
-                            <th class="w-48 p-3 pt-0 pb-3 font-medium text-left">Transaction type</th>
+                            <th class="p-3 pt-0 pb-3 font-medium text-left">Timestamp</th>
+                            <th class="p-3 pt-0 pb-3 font-medium text-left">Type</th>
                             <th class="p-3 pt-0 pr-8 font-medium text-left max-w-[30rem] w-[30rem]">Items</th>
                             <th class="p-3 pt-0 pb-3 font-medium text-left">Created By</th>
-                            <th class="w-48 p-3 pt-0 pb-3 font-medium text-left">Transaction ID</th>
+                            <th class="p-3 pt-0 pb-3 font-medium text-left">Transaction ID</th>
+                            <th class="p-3 pt-0 pb-3 font-medium text-left max-w-xs">Remarks</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
@@ -56,6 +57,7 @@
                                 </td>
                                 <td class="p-3">{{ $transaction->user->name }}</td>
                                 <td class="p-3">{{ $transaction->id }}</td>
+                                <td class="p-3 max-w-xs">{{ $transaction->comment }}</td>
                             </tr>
                         @endforeach
                 </table>
