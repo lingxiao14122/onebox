@@ -61,6 +61,14 @@
                 @enderror
             </div>
             <div class="mb-0">
+                <label for="stock_count" class="inline-block text-lg mb-2">Initial stock count</label>
+                <input type="number" class="border border-gray-500 rounded p-2 mb-2 w-full" name="stock_count"
+                value="{{ old('stock_count') }}">
+                @error('stock_count')
+                <p class="text-red-500 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="mb-0">
                 <label for="minimum_stock" class="inline-block text-lg mb-2">Minimum Stock</label>
                 <input type="number" class="border border-gray-500 rounded p-2 mb-2 w-full" name="minimum_stock"
                     value="{{ old('minimum_stock') }}">
@@ -69,10 +77,10 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="stock_count" class="inline-block text-lg mb-2">Initial stock count</label>
-                <input type="number" class="border border-gray-500 rounded p-2 mb-2 w-full" name="stock_count"
-                    value="{{ old('stock_count') }}">
-                @error('stock_count')
+                <label for="lead_time" class="inline-block text-lg mb-2">Lead Time (Days)</label>
+                <input type="number" class="border border-gray-500 rounded p-2 mb-2 w-full" name="lead_time"
+                    value="{{ old('lead_time') }}">
+                @error('lead_time')
                     <p class="text-red-500 mt-1">{{ $message }}</p>
                 @enderror
             </div>

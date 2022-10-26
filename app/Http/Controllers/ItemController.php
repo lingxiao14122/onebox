@@ -46,6 +46,7 @@ class ItemController extends Controller
             "selling_price" => "nullable|numeric",
             "minimum_stock" => "nullable|numeric",
             "stock_count" => "nullable|numeric|min:0",
+            "lead_time" => "nullable|numeric|min:0",
         ]);
 
         if ($request->hasFile('image')) {
@@ -57,6 +58,8 @@ class ItemController extends Controller
         $formFields['minimum_stock'] = $formFields['minimum_stock'] ?? 0;
 
         $item = Item::create($formFields);
+
+        if ($formFields['stock_count'] == 0) return redirect(route('item.index'));
 
         $transaction = Transaction::create([
             "user_id" => Auth::id(),
