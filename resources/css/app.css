@@ -111,3 +111,14 @@ body {
     transform: translateY(-15px)
   }
 }
+
+.scroll-style::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll-style::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 20px;
+  background-color: #cbccd3;
+}

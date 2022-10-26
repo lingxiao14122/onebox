@@ -1,4 +1,4 @@
-<nav class="w-[220px] border-r border-gray-400">
+<nav class="w-[220px] border-r border-gray-400 overflow-y-scroll scroll-style">
     <div class="flex flex-col ml-5 text-lg">
         <a href="/" class="py-6 text-4xl font-semibold">📦Onebox</a>
     </div>
