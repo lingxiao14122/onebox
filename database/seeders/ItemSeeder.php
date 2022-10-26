@@ -28,7 +28,7 @@ class ItemSeeder extends Seeder
             'purchase_price' => 59,
             'selling_price' => 65,
             'minimum_stock' => 5,
-            'stock_count' => 1
+            'stock_count' => 10
         ]);
         DB::table('items')->insert([
             'name' => "MX Keys Mini Logitech keyboard",
@@ -38,7 +38,7 @@ class ItemSeeder extends Seeder
             'purchase_price' => 90,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 2
+            'stock_count' => 4
         ]);
         DB::table('items')->insert([
             'name' => "MX Mechanical Logitech keyboard",
@@ -48,7 +48,7 @@ class ItemSeeder extends Seeder
             'purchase_price' => 95,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 13
+            'stock_count' => 3
         ]);
         DB::table('items')->insert([
             'name' => "MX Keys Logitech keyboard",
@@ -59,6 +59,70 @@ class ItemSeeder extends Seeder
             'selling_price' => 100,
             'minimum_stock' => 5,
             'stock_count' => 5
+        ]);
+        DB::table('items')->insert([
+            'name' => "Black bag",
+            'sku' => "BAG-BLK",
+            'image' => "itemImages/bag_black.jpg",
+            'description' => "A black bag under",
+            'minimum_stock' => 12,
+            'stock_count' => 10,
+        ]);
+        DB::table('items')->insert([
+            'name' => "Pink Foldable Chair",
+            'sku' => "RDS-CHA",
+            'image' => "itemImages/chair.jpg",
+            'description' => "A pink portable stool",
+            'minimum_stock' => 5,
+            'stock_count' => 5,
+        ]);
+        DB::table('items')->insert([
+            'name' => "Glasses",
+            'sku' => "RDS-GLA",
+            'image' => "itemImages/glasses.jpg",
+            'description' => "A black bag under",
+            'minimum_stock' => 5,
+            'stock_count' => 5,
+        ]);
+        DB::table('items')->insert([
+            'name' => "Steel hammer new wooden handle",
+            'sku' => "MRD-STE",
+            'image' => "itemImages/hammer.jpg",
+            'description' => "Steel hammer with wooden handle",
+            'minimum_stock' => 5,
+            'stock_count' => 5,
+        ]);
+        DB::table('items')->insert([
+            'name' => "Motherboard Asus",
+            'sku' => "ROG-MOT",
+            'image' => "itemImages/motherboard.jpg",
+            'description' => "Asus motherboard full size",
+            'minimum_stock' => 5,
+            'stock_count' => 5,
+        ]);
+        DB::table('items')->insert([
+            'name' => "Red Pot",
+            'sku' => "RDS-POT",
+            'image' => "itemImages/pot.jpg",
+            'description' => "A red pot with black handle",
+            'minimum_stock' => 5,
+            'stock_count' => 5,
+        ]);
+        DB::table('items')->insert([
+            'name' => "SIMMAX 8GB USB",
+            'sku' => "SIM-USB",
+            'image' => "itemImages/usb.jpg",
+            'description' => "USB dongle with 3 different color",
+            'minimum_stock' => 5,
+            'stock_count' => 5,
+        ]);
+        DB::table('items')->insert([
+            'name' => "G-shock watch white transparent",
+            'sku' => "RDS-WAT",
+            'image' => "itemImages/watch.jpg",
+            'description' => "G shock white transaparant watch digital",
+            'minimum_stock' => 5,
+            'stock_count' => 5,
         ]);
     }
 }

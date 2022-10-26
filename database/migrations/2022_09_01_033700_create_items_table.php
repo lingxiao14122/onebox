@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('purchase_price')->nullable();
             $table->integer('selling_price')->nullable();
-            $table->integer('minimum_stock');
+            $table->integer('minimum_stock')->nullable();
             $table->integer('stock_count')->nullable()->unsigned();
             $table->integer('lead_time')->nullable();
             $table->timestamps();
