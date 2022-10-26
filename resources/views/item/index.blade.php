@@ -23,7 +23,8 @@
                 </thead>
                 <tbody class="bg-white">
                     @foreach ($items as $item)
-                        <tr class="cursor-pointer hover:bg-gray-100" onclick='window.location="{{ url("/item/{$item->id}") }}"'>
+                        <tr class="cursor-pointer hover:bg-gray-100 {{ $item->minimum_stock > $item->stock_count ? 'text-red-500 hover:bg-red-300' : '' }}"
+                            onclick='window.location="{{ url("/item/{$item->id}") }}"'>
                             <td class="p-3 pl-3 text-slate-500">
                                 <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('storage/no-image.png') }}"
                                     class="h-20 w-20 bg-gray-200 object-contain">
