@@ -117,6 +117,7 @@ class ItemController extends Controller
             "purchase_price" => "nullable|numeric",
             "selling_price" => "nullable|numeric",
             "minimum_stock" => "nullable|numeric",
+            "lead_time" => "nullable|numeric|min:0",
         ]);
 
         if ($request->hasFile('image')) {
@@ -124,7 +125,7 @@ class ItemController extends Controller
         }
 
         $LOGICAL_MIN_STOCK = 0;
-        $formFields['minimum_stock'] = $LOGICAL_MIN_STOCK;
+        $formFields['minimum_stock'] = $formFields['minimum_stock'] ? $formFields['minimum_stock'] : $LOGICAL_MIN_STOCK;
 
         $item->update($formFields);
 
