@@ -42,7 +42,7 @@ class ItemSeeder extends Seeder
             'purchase_price' => 90,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 4,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -53,7 +53,7 @@ class ItemSeeder extends Seeder
             'purchase_price' => 95,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 3,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -64,7 +64,7 @@ class ItemSeeder extends Seeder
             'purchase_price' => 90,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -73,7 +73,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/bag_black.jpg",
             'description' => "A black bag under",
             'minimum_stock' => 12,
-            'stock_count' => 10,
+            'stock_count' => 00,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -82,7 +82,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/chair.jpg",
             'description' => "A pink portable stool",
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -91,7 +91,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/glasses.jpg",
             'description' => "A black bag under",
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -100,7 +100,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/hammer.jpg",
             'description' => "Steel hammer with wooden handle",
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -109,7 +109,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/motherboard.jpg",
             'description' => "Asus motherboard full size",
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -118,7 +118,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/pot.jpg",
             'description' => "A red pot with black handle",
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -127,7 +127,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/usb.jpg",
             'description' => "USB dongle with 3 different color",
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
         DB::table('items')->insert([
@@ -136,7 +136,7 @@ class ItemSeeder extends Seeder
             'image' => "itemImages/watch.jpg",
             'description' => "G shock white transaparant watch digital",
             'minimum_stock' => 5,
-            'stock_count' => 5,
+            'stock_count' => 0,
             'lead_time' => 7
         ]);
     }
