@@ -22,7 +22,7 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $transaction = Transaction::all()->sortByDesc("created_at");
+        $transaction = Transaction::all()->sortByDesc("id");
         return view('transaction.index', ["transactions" => $transaction]);
     }
 
