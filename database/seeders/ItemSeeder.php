@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Transaction;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -18,8 +20,9 @@ class ItemSeeder extends Seeder
      */
     public function run()
     {
-        $result = File::copyDirectory(base_path().'/a-materials/product-mages', storage_path('/app/public/itemImages'));
-        Log::info("book seeder image copy is: ".print_r($result));
+        $result = File::copyDirectory(base_path() . '/a-materials/product-mages', storage_path('/app/public/itemImages'));
+        Log::info("book seeder image copy is: $result");
+
         DB::table('items')->insert([
             'name' => "MX Master 3s Logitech mouse",
             'sku' => "LOGI-MOU",
@@ -28,7 +31,8 @@ class ItemSeeder extends Seeder
             'purchase_price' => 59,
             'selling_price' => 65,
             'minimum_stock' => 5,
-            'stock_count' => 10
+            'stock_count' => 0,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "MX Keys Mini Logitech keyboard",
@@ -38,7 +42,8 @@ class ItemSeeder extends Seeder
             'purchase_price' => 90,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 4
+            'stock_count' => 4,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "MX Mechanical Logitech keyboard",
@@ -48,7 +53,8 @@ class ItemSeeder extends Seeder
             'purchase_price' => 95,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 3
+            'stock_count' => 3,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "MX Keys Logitech keyboard",
@@ -58,7 +64,8 @@ class ItemSeeder extends Seeder
             'purchase_price' => 90,
             'selling_price' => 100,
             'minimum_stock' => 5,
-            'stock_count' => 5
+            'stock_count' => 5,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "Black bag",
@@ -67,6 +74,7 @@ class ItemSeeder extends Seeder
             'description' => "A black bag under",
             'minimum_stock' => 12,
             'stock_count' => 10,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "Pink Foldable Chair",
@@ -75,6 +83,7 @@ class ItemSeeder extends Seeder
             'description' => "A pink portable stool",
             'minimum_stock' => 5,
             'stock_count' => 5,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "Glasses",
@@ -83,6 +92,7 @@ class ItemSeeder extends Seeder
             'description' => "A black bag under",
             'minimum_stock' => 5,
             'stock_count' => 5,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "Steel hammer new wooden handle",
@@ -91,6 +101,7 @@ class ItemSeeder extends Seeder
             'description' => "Steel hammer with wooden handle",
             'minimum_stock' => 5,
             'stock_count' => 5,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "Motherboard Asus",
@@ -99,6 +110,7 @@ class ItemSeeder extends Seeder
             'description' => "Asus motherboard full size",
             'minimum_stock' => 5,
             'stock_count' => 5,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "Red Pot",
@@ -107,6 +119,7 @@ class ItemSeeder extends Seeder
             'description' => "A red pot with black handle",
             'minimum_stock' => 5,
             'stock_count' => 5,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "SIMMAX 8GB USB",
@@ -115,6 +128,7 @@ class ItemSeeder extends Seeder
             'description' => "USB dongle with 3 different color",
             'minimum_stock' => 5,
             'stock_count' => 5,
+            'lead_time' => 7
         ]);
         DB::table('items')->insert([
             'name' => "G-shock watch white transparent",
@@ -123,6 +137,7 @@ class ItemSeeder extends Seeder
             'description' => "G shock white transaparant watch digital",
             'minimum_stock' => 5,
             'stock_count' => 5,
+            'lead_time' => 7
         ]);
     }
 }

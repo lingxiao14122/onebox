@@ -56,6 +56,7 @@ class ItemController extends Controller
         // if stock count is null then 0
         $formFields['stock_count'] = $formFields['stock_count'] ?? 0;
         $formFields['minimum_stock'] = $formFields['minimum_stock'] ?? 0;
+        $formFields['lead_time'] = $formFields['lead_time'] ?? 0;
 
         $item = Item::create($formFields);
 
