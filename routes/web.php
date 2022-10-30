@@ -3,6 +3,7 @@
 use App\Exports\TransactionsExport;
 use App\Exports\UsersExport;
 use App\Http\Controllers\ForecastController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
@@ -26,13 +27,7 @@ use Maatwebsite\Excel\Facades\Excel;
 |
 */
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return view('landing');
-    } else {
-        return redirect('login');
-    }
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/logout', [UserController::class, 'logout']);
 
@@ -57,10 +52,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('notifications', function () {
         return auth()->user()->notifications->toJson();
     });
+    Route::resource('item', ItemController::class);
 });
 
 Route::group(['middleware' => ['auth', 'can:user']], function () {
-    Route::resource('item', ItemController::class)->except(['destroy']);
 });
 
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
@@ -70,13 +65,14 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/user/{user}', [UserController::class, 'edit']);
     Route::put('/user/{user}', [UserController::class, 'update']);
 
-    Route::resource('item', ItemController::class);
+    Route::delete('item', [ItemController::class, 'delete']);
     Route::get('/integration', [IntegrationController::class, 'index']);
     Route::get('/integration/auth/{platform}', [IntegrationController::class, 'auth']);
     Route::get('/integration/callback/{platform}', [IntegrationController::class, 'callback']);
     Route::get('/integration/{platform}', [IntegrationController::class, 'edit'])->middleware('lazada.authorized');
     Route::put('/integration/{platform}', [IntegrationController::class, 'update'])->middleware('lazada.authorized');
     Route::get('/integration/sync/{platform}', [IntegrationController::class, 'syncDown'])->middleware('lazada.authorized');
-
+    
+    Route::get('/forecast', [ForecastController::class, 'index']);
     Route::get('/forecast', [ForecastController::class, 'index']);
 });

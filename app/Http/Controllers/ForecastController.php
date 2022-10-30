@@ -30,7 +30,32 @@ class ForecastController extends Controller
         return view('forecast.index', ['items' => $items, 'period' => $periodDays]);
     }
 
-    private function getDemandCount($periodDays, $item_id)
+    public function getItemsExpiredRestock($period)
+    {
+        $items = Item::all();
+        $periodDays = $period ?? 30;
+
+        $items->each(function ($item, $index) use ($periodDays) {
+            $item['demandCount'] = $this->getDemandCount($periodDays, $item->id);
+            if ($item['demandCount'] == 0) {
+                $item['demandCount'] = null;
+                return;
+            }
+            $item['demandPerDay'] = round($this->getDemandCount($periodDays, $item->id) ? $item->demandCount/$periodDays : '', 2);
+            $item['daysLeft'] = round($item->stock_count / $item['demandPerDay'], 0);
+            $outOfStockDate = Carbon::now()->addDays($item['daysLeft']);
+            $item['outOfStock'] = $outOfStockDate->format('d/m/Y');
+            $item['restockDate'] = $outOfStockDate->subDays($item->lead_time);
+        });
+
+        $forecastExpiredItems = $items->filter(function ($item) {
+            return Carbon::parse("$item->restockDate") <= Carbon::now();
+        });
+
+        return $forecastExpiredItems;
+    }
+
+    public function getDemandCount($periodDays, $item_id)
     {
         $queryDate = Carbon::now()->subDays($periodDays)->toDateTimeString();
         $rawDemandCount = DB::select("

@@ -8,7 +8,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/notification.js',
-                'resources/js/selectProduct.js'
+                'resources/js/selectProduct.js',
+                'resources/js/dashboard.js'
             ],
             refresh: true,
         }),
