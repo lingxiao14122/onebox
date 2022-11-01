@@ -9,22 +9,22 @@
                 <div class="flex gap-5">
                     <div class="w-40 h-40 border rounded bg-sky-50 border-slate-400">
                         <p class="mt-4 font-medium text-center">Total items</p>
-                        <p class="mt-2 text-6xl text-center">{{ $quantities[0] }}</p>
+                        <p class="mt-2 text-6xl text-center">1</p>
                         <p class="mt-4 text-sm text-center">Quantity</p>
                     </div>
                     <div class="w-40 h-40 border rounded bg-sky-50 border-slate-400">
                         <p class="mt-4 font-medium text-center">Total stock count</p>
-                        <p class="mt-2 text-6xl text-center">{{ $quantities[1] }}</p>
+                        <p class="mt-2 text-6xl text-center">1</p>
                         <p class="mt-4 text-sm text-center">Quantity</p>
                     </div>
                     <div class="w-40 h-40 border rounded bg-sky-50 border-slate-400">
                         <p class="mt-4 font-medium text-center">Stock out (Week)</p>
-                        <p class="mt-2 text-6xl text-center">{{ $quantities[2] }}</p>
+                        <p class="mt-2 text-6xl text-center">1</p>
                         <p class="mt-4 text-sm text-center">Quantity</p>
                     </div>
                     <div class="w-40 h-40 border rounded bg-sky-50 border-slate-400">
                         <p class="mt-4 font-medium text-center">Stock in (Week)</p>
-                        <p class="mt-2 text-6xl text-center">{{ $quantities[3] ?? 0}}</p>
+                        <p class="mt-2 text-6xl text-center">1</p>
                         <p class="mt-4 text-sm text-center">Quantity</p>
                     </div>
                 </div>
@@ -41,18 +41,42 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
-                            @foreach ($low_stock_count as $item)
+                            {{-- @foreach ($low_stock_count as $item)
                                 <tr class="text-center">
                                     <td>{{ $item->sku }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->stock_count }}</td>
                                     <td>{{ $item->minimum_stock }}</td>
                                 </tr>
-                            @endforeach
-                            @if ($low_stock_count->isEmpty())
-                                <tr>
-                                    <td colspan="4" class="text-center">All items has sufficient stock 👏</td>
+                                @endforeach --}}
+                                <tr class="text-center">
+                                    <td>LOGI-KEYS</td>
+                                    <td>Logitech MX Keys</td>
+                                    <td>0</td>
+                                    <td>1</td>
                                 </tr>
+                                <tr class="text-center">
+                                    <td>LOGI-KEYS</td>
+                                    <td>Logitech MX Keys</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td>LOGI-KEYS</td>
+                                    <td>Logitech MX Keys</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td>LOGI-KEYS</td>
+                                    <td>Logitech MX Keys</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                            <tr>
+                                <td colspan="4" class="text-center">All items has sufficient stock 👏</td>
+                            </tr>
+                            @if ($low_stock_count->isEmpty())
                             @endif
                         </tbody>
                     </table>
@@ -69,17 +93,37 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
-                            @foreach ($forecast as $item)
+                            {{-- @foreach ($forecast as $item)
                                 <tr class="text-center">
                                     <td>{{ $item->sku }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->restockDate ? $item->restockDate->format('d/m/Y') : 'N/A' }}</td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
+                            <tr class="text-center">
+                                <td>LOGI-MXKEYSMINI</td>
+                                <td>MX Keys Mini Logitech keyboard</td>
+                                <td>22/10/2022</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>LOGI-MXKEYSMINI</td>
+                                <td>MX Keys Mini Logitech keyboard</td>
+                                <td>22/10/2022</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>LOGI-MXKEYSMINI</td>
+                                <td>MX Keys Mini Logitech keyboard</td>
+                                <td>22/10/2022</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>LOGI-MXKEYSMINI</td>
+                                <td>MX Keys Mini Logitech keyboard</td>
+                                <td>22/10/2022</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-center">No items need restock 🤞</td>
+                            </tr>
                             @if ($forecast->isEmpty())
-                                <tr>
-                                    <td colspan="4" class="text-center">No items need restock 🤞</td>
-                                </tr>
                             @endif
                         </tbody>
                     </table>
@@ -111,12 +155,26 @@
                     type: 'pie',
                     radius: '60%',
                     data: [
-                        @foreach ($top_selling as $item)
-                            {
-                                value: {{ $item->demand }},
-                                name: '{{ $item->name }}'
-                            },
-                        @endforeach
+                        {
+                            value: 22,
+                            name: 'product1'
+                        },                  
+                        {
+                            value: 23,
+                            name: 'product2'
+                        },                  
+                        {
+                            value: 37,
+                            name: 'product3'
+                        },                  
+                        {
+                            value: 44,
+                            name: 'product4'
+                        },                  
+                        {
+                            value: 52,
+                            name: 'product5'
+                        },                  
                     ],
                     emphasis: {
                         itemStyle: {
