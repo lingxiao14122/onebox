@@ -27,3 +27,11 @@ npm run build
 php artisan queue:listen
 php artisan websockets:serve
 ```
+
+worker settings
+/etc/supervisor/conf.d
+sudo supervisorctl reread
+
+sudo supervisorctl update
+
+sudo supervisorctl restart all

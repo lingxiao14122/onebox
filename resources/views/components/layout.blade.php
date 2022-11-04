@@ -29,12 +29,6 @@
         <nav class="flex items-center justify-between my-4">
             <a href="/" class="ml-4 text-5xl">📦Onebox</a>
             <ul class="flex mr-6 space-x-6 text-lg">
-                <li>
-                    <a href="/login" class="hover:text-blue-500">Login</a>
-                </li>
-                <li>
-                    <a href="/register" class="hover:text-blue-500">Register</a>
-                </li>
             </ul>
         </nav>
         <main>

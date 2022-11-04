@@ -29,7 +29,7 @@
             </div>
             <div class="mb-0">
                 <label for="image" class="inline-block text-lg mb-2">Image</label>
-                <input type="file" class="border border-gray-500 rounded p-2 mb-2 w-full" name="image">
+                <input type="file" accept="image/*" class="border border-gray-500 rounded p-2 mb-2 w-full" name="image">
                 @error('image')
                     <p class="text-red-500 mt-1">{{ $message }}</p>
                 @enderror

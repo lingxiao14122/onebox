@@ -175,7 +175,7 @@ function chooseProductSave(elem, productId, productName) {
         <input class="h-12 pl-6 mr-4 basis-1/2" type="text" value="" placeholder="Select a product"
             onclick="chooseProduct(this)">
         <input type="hidden" name="item_ids[]" type="number">
-        <input class="basis-1/2 max-w-[200px] h-8" type="number" min="1" name="item_quantities[]"
+        <input class="basis-1/2 max-w-[200px] h-8" type="number" name="item_quantities[]"
             required />
         <div class="mx-4 cursor-pointer" onclick="chooseProductRowDelete(this)">
             <?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24" viewBox="0 0 48 48"

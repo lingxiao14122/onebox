@@ -88,7 +88,7 @@ class ItemSeeder extends Seeder
         DB::table('items')->insert([
             'name' => "Glasses",
             'sku' => "RDS-GLA",
-            'image' => "itemImages/glasses.jpg",
+            'image' => "itemImages/glasses.png",
             'description' => "A black bag under",
             'minimum_stock' => 5,
             'stock_count' => 0,

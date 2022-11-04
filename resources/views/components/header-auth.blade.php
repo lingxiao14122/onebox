@@ -10,7 +10,7 @@
                     <x-icon.bell width="24" height="24"></x-icon.bell>
                 </button>
                 <div x-show="open" x-transition
-                    class="absolute bg-white right-0 top-[100%] overflow-y-scroll min-w-[24rem]
+                    class="absolute bg-white right-0 top-[100%] overflow-y-scroll min-w-[24rem] z-10
                         max-h-52 border rounded border-slate-300 notification-box shadow-md"
                     style="display: none;">
                     <div class="mx-4 mb-4" id="notification-content">

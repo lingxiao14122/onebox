@@ -53,7 +53,13 @@ class TransactionController extends Controller
         // when mode stock out flip quantity to negative
         if ($request->transaction_type == "out")
             foreach ($products as $id => $quantity) {
-                $products[$id] = -$quantity;
+                    $products[$id] = -$quantity;
+            }
+        if ($request->transaction_type == "audit")
+            foreach ($products as $id => $quantity) {
+                if ($quantity < 0) {
+                    $products[$id] = -$quantity;
+                }
             }
 
         // check ahead if stock count will be negative number

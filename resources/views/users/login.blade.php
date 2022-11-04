@@ -22,17 +22,10 @@
                     <p class="mt-1 text-red-500">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-6">
+            <div class="mb-0">
                 <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-black">
                     Sign In
                 </button>
-            </div>
-
-            <div class="mt-8">
-                <p>
-                    No account? Register
-                    <a href="/register" class="text-blue-500">here</a>
-                </p>
             </div>
         </form>
     </x-card>
