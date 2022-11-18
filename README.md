@@ -1,37 +1,20 @@
 # Onebox
-
-[http://oneboxapp.tech/](http://oneboxapp.tech/)
-
-setup
+## Local setup
 ```
-mkdir oneboxapp.tech
-sudo chown lingxiao14122:www-data oneboxapp.tech
-cd oneboxapp.tech
-git clone https://github.com/lingxiao14122/onebox.git .
-mkdir storage/app/public/itemImages
-sudo chown lingxiao3218:www-data storage/app/public/itemImages
-sudo chown www-data:www-data /var/www/oneboxapp.tech/storage/framework
-
+git clone https://github.com/lingxiao14122/onebox.git
+cd onebox
 composer install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate:fresh --seed
-php artisan storage:link
+create database in mysql
 npm install
+symbolic link php artisan storage:link
+php artisan migrate:fresh --seed
 ```
 
-Running
+## Running
 ```
 npm run build
-./mailhog
+./mailhog (check .env port 1025)
 php artisan queue:listen
-php artisan websockets:serve
 ```
-
-worker settings
-/etc/supervisor/conf.d
-sudo supervisorctl reread
-
-sudo supervisorctl update
-
-sudo supervisorctl restart all
