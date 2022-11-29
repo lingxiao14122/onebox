@@ -18,3 +18,6 @@ npm run build
 ./mailhog (check .env port 1025)
 php artisan queue:listen
 ```
+
+## Screenshots
+![](docs/login.png)
