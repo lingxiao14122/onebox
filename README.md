@@ -21,3 +21,13 @@ php artisan queue:listen
 
 ## Screenshots
 ![](docs/login.png)
+![](docs/dashboard.png)
+![](docs/items.png)
+![](docs/item_detail.png')
+![](docs/transactions.png)
+![](docs/new_transaction.png)
+![](docs/integration.png)
+![](docs/integration_setting.png)
+![](docs/forecast.png)
+![](docs/users.png)
+
