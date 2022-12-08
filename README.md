@@ -1,5 +1,5 @@
 # Onebox
-https://oneboxapp.tech/(https://oneboxapp.tech/)
+[https://oneboxapp.tech/](https://oneboxapp.tech/)
 ## Local setup
 ```
 git clone https://github.com/lingxiao14122/onebox.git
