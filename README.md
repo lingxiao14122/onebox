@@ -2,7 +2,7 @@
 ## The project
 Onebox is a final year project.
 The ultimate goal is to help e-commerce sellers manage stock from one single platform.
-This project is built with Laravel and tailwind, and deployed on GCP https://oneboxapp.tech/login (instance deleted but a Image is kept)
+This project is built with Laravel and tailwind, and deployed on GCP https://oneboxapp.tech (instance deleted but a Image is kept)
 ### Features
 - Login
 - Dashboard
